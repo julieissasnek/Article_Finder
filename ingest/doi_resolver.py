@@ -313,46 +313,52 @@ class OpenAlexClient:
         """Make a GET request to OpenAlex API."""
         url = f"{self.BASE_URL}/{endpoint}"
         
-        params = params or {}
-        if self.email:
-            params['mailto'] = self.email
-        if self.api_key:
-            params['api_key'] = self.api_key
-        
-        if params:
-            query = urlencode(params)
-            url = f"{url}?{query}"
-        
-        # Check cache
-        cached = self.cache.get(url)
-        if cached is not None:
-            return cached
-        
-        # Rate limit
-        self.rate_limiter.wait()
-        
-        start = time.monotonic()
-        try:
-            req = urllib.request.Request(url, headers={'User-Agent': 'ArticleFinder/3.2'})
-            with urllib.request.urlopen(req, timeout=30) as response:
-                data = json.loads(response.read().decode('utf-8'))
-                self.rate_limiter.success()
-                _update_api_metrics('openalex', (time.monotonic() - start) * 1000, True)
-                self.cache.set(url, data)
-                return data
-                
-        except urllib.error.HTTPError as e:
-            self.rate_limiter.failure()
-            _update_api_metrics('openalex', (time.monotonic() - start) * 1000, False)
-            if e.code == 404:
-                return None
-            logger.warning(f"OpenAlex API error {e.code}")
-            raise
-        except Exception as e:
-            self.rate_limiter.failure()
-            _update_api_metrics('openalex', (time.monotonic() - start) * 1000, False)
-            logger.warning(f"OpenAlex request failed: {e}")
-            raise
+        def _build_url(include_key: bool) -> str:
+            local_params = dict(params or {})
+            if self.email:
+                local_params['mailto'] = self.email
+            if include_key and self.api_key:
+                local_params['api_key'] = self.api_key
+            if local_params:
+                return f"{url}?{urlencode(local_params)}"
+            return url
+
+        for include_key in (True, False):
+            if include_key and not self.api_key:
+                continue
+
+            request_url = _build_url(include_key)
+            cached = self.cache.get(request_url)
+            if cached is not None:
+                return cached
+
+            self.rate_limiter.wait()
+            start = time.monotonic()
+            try:
+                req = urllib.request.Request(request_url, headers={'User-Agent': 'ArticleFinder/3.2'})
+                with urllib.request.urlopen(req, timeout=30) as response:
+                    data = json.loads(response.read().decode('utf-8'))
+                    self.rate_limiter.success()
+                    _update_api_metrics('openalex', (time.monotonic() - start) * 1000, True)
+                    self.cache.set(request_url, data)
+                    return data
+            except urllib.error.HTTPError as e:
+                self.rate_limiter.failure()
+                _update_api_metrics('openalex', (time.monotonic() - start) * 1000, False)
+                if e.code == 404:
+                    return None
+                if e.code == 401 and include_key and self.api_key:
+                    logger.warning("OpenAlex API key rejected; retrying without key")
+                    self.api_key = None
+                    continue
+                logger.warning(f"OpenAlex API error {e.code}")
+                raise
+            except Exception as e:
+                self.rate_limiter.failure()
+                _update_api_metrics('openalex', (time.monotonic() - start) * 1000, False)
+                logger.warning(f"OpenAlex request failed: {e}")
+                raise
+        return None
     
     def get_work_by_doi(self, doi: str) -> Optional[Dict]:
         """Get work by DOI."""
@@ -419,6 +425,7 @@ class OpenAlexClient:
     
     def _normalize_work(self, item: Dict) -> Dict:
         """Normalize OpenAlex work to standard format."""
+        abstract = self._reconstruct_abstract(item.get('abstract_inverted_index'))
         # Extract authors
         authors = []
         for authorship in item.get('authorships', []):
@@ -443,7 +450,7 @@ class OpenAlexClient:
             'authors': authors,
             'year': item.get('publication_year'),
             'venue': venue,
-            'abstract': item.get('abstract'),
+            'abstract': abstract,
             'url': item.get('id'),
             'type': item.get('type'),
             'open_access': item.get('open_access', {}).get('is_oa'),
@@ -452,6 +459,24 @@ class OpenAlexClient:
             'referenced_works': item.get('referenced_works', []),
             'source': 'openalex'
         }
+
+    def _reconstruct_abstract(self, inverted_index: Optional[Dict]) -> Optional[str]:
+        """Reconstruct abstract text from OpenAlex inverted index."""
+        if not inverted_index:
+            return None
+        try:
+            positions: Dict[int, str] = {}
+            for word, indices in inverted_index.items():
+                for idx in indices:
+                    positions[int(idx)] = word
+            if not positions:
+                return None
+            max_pos = max(positions)
+            words = [positions.get(i, '') for i in range(max_pos + 1)]
+            text = ' '.join(word for word in words if word)
+            return text.strip() or None
+        except Exception:
+            return None
 
 
 class DOIResolver:

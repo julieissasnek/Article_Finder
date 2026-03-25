@@ -29,6 +29,7 @@ class BatchEnricher:
         
         # Lazy-load resolvers
         self._resolver = None
+        self._title_repair = None
         
         self.stats = {
             'processed': 0,
@@ -46,6 +47,14 @@ class BatchEnricher:
             from .doi_resolver import DOIResolver
             self._resolver = DOIResolver(email=self.email)
         return self._resolver
+
+    @property
+    def title_repair(self):
+        """Lazy-load title-based repair client."""
+        if self._title_repair is None:
+            from .title_metadata_repair import TitleMetadataRepairClient
+            self._title_repair = TitleMetadataRepairClient(email=self.email, resolver=self.resolver)
+        return self._title_repair
     
     def enrich_paper(self, paper: Dict) -> Dict[str, Any]:
         """
@@ -211,37 +220,38 @@ class BatchEnricher:
             
             try:
                 # Search by title
-                results = self.resolver.search_by_bibliographic(
+                author = paper.get('authors', [None])[0] if paper.get('authors') else None
+                best = self.title_repair.lookup(
                     title=paper['title'],
-                    author=paper.get('authors', [None])[0] if paper.get('authors') else None,
+                    author=author,
                     year=paper.get('year'),
-                    limit=3
+                    limit=3,
                 )
-                
-                if results:
-                    # Find best match
-                    best = self._best_match(paper, results)
-                    
-                    if best:
-                        stats['found'] += 1
-                        
-                        # Update paper with found metadata
-                        if best.get('doi'):
-                            paper['doi'] = best['doi']
-                            paper['paper_id'] = f"doi:{best['doi']}"
-                        
-                        if best.get('abstract') and not paper.get('abstract'):
-                            paper['abstract'] = best['abstract']
-                            stats['enriched'] += 1
-                        
-                        if best.get('authors') and not paper.get('authors'):
-                            paper['authors'] = best['authors']
-                        
-                        if best.get('venue') and not paper.get('venue'):
-                            paper['venue'] = best['venue']
-                        
-                        paper['enriched_at'] = datetime.utcnow().isoformat()
-                        self.db.add_paper(paper)
+
+                if best:
+                    stats['found'] += 1
+
+                    # Update paper with found metadata
+                    if best.get('doi'):
+                        paper['doi'] = best['doi']
+                        paper['paper_id'] = f"doi:{best['doi']}"
+
+                    if best.get('abstract') and not paper.get('abstract'):
+                        paper['abstract'] = best['abstract']
+                        stats['enriched'] += 1
+
+                    if best.get('authors') and not paper.get('authors'):
+                        paper['authors'] = best['authors']
+
+                    venue = best.get('venue') or best.get('journal')
+                    if venue and not paper.get('venue'):
+                        paper['venue'] = venue
+
+                    if best.get('year') and not paper.get('year'):
+                        paper['year'] = best['year']
+
+                    paper['enriched_at'] = datetime.utcnow().isoformat()
+                    self.db.add_paper(paper)
                         
             except Exception as e:
                 logger.warning(f"Error searching for {paper.get('title', '?')[:50]}: {e}")

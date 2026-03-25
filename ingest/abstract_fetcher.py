@@ -9,6 +9,7 @@ from typing import Dict, Any, Optional, List
 
 from core.database import Database
 from ingest.doi_resolver import DOIResolver
+from ingest.title_metadata_repair import TitleMetadataRepairClient
 from ingest.pdf_cataloger import PDFCataloger
 from config.loader import get
 
@@ -22,6 +23,7 @@ class AbstractFetcher:
         self.db = database
         self.email = email
         self.resolver = DOIResolver(email=email)
+        self.title_repair = TitleMetadataRepairClient(email=email, resolver=self.resolver)
         self.cataloger = PDFCataloger()
 
         self.stats = {
@@ -41,24 +43,7 @@ class AbstractFetcher:
         return len(overlap) / max(len(left_tokens), 1)
 
     def _best_title_match(self, title: str, year: Optional[int]) -> Optional[Dict[str, Any]]:
-        if not title:
-            return None
-        results = self.resolver.search_by_bibliographic(
-            title=title,
-            author=None,
-            year=year,
-            limit=5,
-        )
-        best = None
-        best_score = 0.0
-        for result in results:
-            score = self._title_overlap(title, result.get('title', ''))
-            if score > best_score:
-                best = result
-                best_score = score
-        if best_score >= 0.2:
-            return best
-        return None
+        return self.title_repair.lookup(title=title, year=year, limit=5)
 
     def _update_paper_from_metadata(self, paper: Dict[str, Any], metadata: Dict[str, Any]) -> bool:
         updated = False

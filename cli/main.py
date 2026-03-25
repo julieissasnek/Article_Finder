@@ -256,7 +256,7 @@ def cmd_inbox(args):
 
 def cmd_enrich(args):
     """Enrich papers with metadata from APIs."""
-    from ingest.doi_resolver import DOIResolver
+    from ingest.enricher import BatchEnricher
     
     db = get_db()
     
@@ -266,48 +266,28 @@ def cmd_enrich(args):
         print("  Set in config/settings.local.yaml or use --email")
         return 1
     
-    resolver = DOIResolver(email=email)
-    
-    # Get papers needing enrichment
+    enricher = BatchEnricher(db, email=email)
+
     papers = db.search_papers(limit=10000)
-    needs_enrichment = [p for p in papers if not p.get('abstract') and p.get('doi')]
-    
-    limit = args.limit or len(needs_enrichment)
-    to_process = needs_enrichment[:limit]
-    
-    print(f"Enriching {len(to_process)} papers (of {len(needs_enrichment)} needing enrichment)...")
-    
-    enriched = 0
-    errors = 0
-    
-    for i, paper in enumerate(to_process):
-        if i % 10 == 0:
-            print(f"  Progress: {i}/{len(to_process)} (enriched: {enriched})")
-        
-        try:
-            result = resolver.resolve(paper['doi'])
-            if result:
-                # Update paper with new metadata
-                if result.get('abstract') and not paper.get('abstract'):
-                    paper['abstract'] = result['abstract']
-                    enriched += 1
-                
-                if result.get('authors') and not paper.get('authors'):
-                    paper['authors'] = result['authors']
-                
-                if result.get('venue') and not paper.get('venue'):
-                    paper['venue'] = result['venue']
-                
-                db.add_paper(paper)
-        except Exception as e:
-            errors += 1
-            if args.verbose:
-                print(f"  Error enriching {paper['doi']}: {e}")
-    
+    doi_candidates = [p for p in papers if not p.get('abstract') and p.get('doi')]
+    title_candidates = [p for p in papers if not p.get('abstract') and not p.get('doi') and p.get('title')]
+
+    doi_limit = args.limit or len(doi_candidates)
+    title_limit = args.limit or len(title_candidates)
+
+    print(f"Enriching DOI-backed papers: {min(len(doi_candidates), doi_limit)}")
+    doi_stats = enricher.enrich_all(filter_missing='abstract', limit=doi_limit)
+
+    print(f"\nRepairing title-only papers: {min(len(title_candidates), title_limit)}")
+    title_stats = enricher.enrich_by_title_search(title_candidates, limit=title_limit)
+
     print(f"\n=== Enrichment Complete ===")
-    print(f"Processed: {len(to_process)}")
-    print(f"Enriched:  {enriched}")
-    print(f"Errors:    {errors}")
+    print(f"DOI processed:       {doi_stats['processed']}")
+    print(f"DOI enriched:        {doi_stats['abstracts_added']}")
+    print(f"Title processed:     {title_stats['processed']}")
+    print(f"Title matches:       {title_stats['found']}")
+    print(f"Title enriched:      {title_stats['enriched']}")
+    print(f"Total errors:        {doi_stats['errors'] + title_stats['errors']}")
     
     return 0
 

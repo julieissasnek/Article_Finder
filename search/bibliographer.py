@@ -300,28 +300,46 @@ class SemanticScholarSearcher:
         """Search Semantic Scholar for papers."""
         papers = []
         
-        try:
+        for retry_without_key in (False, True):
+            if retry_without_key and 'x-api-key' not in self.session.headers:
+                continue
             params = {
                 'query': query,
                 'limit': min(limit, 100),
                 'fields': 'paperId,externalIds,title,authors,year,venue,abstract,citationCount,isOpenAccess,openAccessPdf'
             }
-            
-            response = self.session.get(
-                f"{self.BASE_URL}/paper/search",
-                params=params,
-                timeout=30
-            )
-            response.raise_for_status()
-            data = response.json()
-            
-            for item in data.get('data', []):
-                paper = self._normalize(item)
-                if paper:
-                    papers.append(paper)
-                    
-        except Exception as e:
-            logger.warning(f"Semantic Scholar search failed for '{query}': {e}")
+            response = None
+            try:
+                if retry_without_key:
+                    self.session.headers.pop('x-api-key', None)
+
+                response = self.session.get(
+                    f"{self.BASE_URL}/paper/search",
+                    params=params,
+                    timeout=30
+                )
+                response.raise_for_status()
+                data = response.json()
+
+                for item in data.get('data', []):
+                    paper = self._normalize(item)
+                    if paper:
+                        papers.append(paper)
+                break
+            except requests.HTTPError as e:
+                if (
+                    response is not None
+                    and response.status_code == 403
+                    and not retry_without_key
+                    and 'x-api-key' in self.session.headers
+                ):
+                    logger.warning("Semantic Scholar API key rejected; retrying without key")
+                    continue
+                logger.warning(f"Semantic Scholar search failed for '{query}': {e}")
+                break
+            except Exception as e:
+                logger.warning(f"Semantic Scholar search failed for '{query}': {e}")
+                break
         
         return papers
     
