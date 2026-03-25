@@ -1,0 +1,77 @@
+# Version: 3.2.4
+# Article Finder v3 Configuration
+# Copy to config/settings.local.yaml and fill in your values
+
+# API Configuration
+apis:
+  # OpenAlex - free, no key required, but email gets you into polite pool
+  openalex:
+    email: "your-email@ucsd.edu"  # CHANGE THIS
+    api_key: null  # Optional premium/trial key; keep in settings.local.yaml only
+    base_url: "https://api.openalex.org"
+    rate_limit: 10  # requests per second (polite pool allows 10/sec)
+  
+  # CrossRef - free, email gets polite pool
+  crossref:
+    email: "your-email@ucsd.edu"  # CHANGE THIS
+    base_url: "https://api.crossref.org"
+    rate_limit: 50  # polite pool with email
+  
+  # Unpaywall - free, requires email
+  unpaywall:
+    email: "your-email@ucsd.edu"  # CHANGE THIS
+    base_url: "https://api.unpaywall.org/v2"
+  
+  # Semantic Scholar - free tier
+  semantic_scholar:
+    api_key: null  # Optional, for higher rate limits
+    base_url: "https://api.semanticscholar.org/graph/v1"
+    rate_limit: 5  # requests per second without key
+
+# Paths
+paths:
+  database: "data/article_finder.db"
+  pdfs: "data/pdfs"
+  inbox_pdfs: "data/inbox_pdfs"
+  job_bundles: "data/job_bundles"
+  ae_outputs: "data/ae_outputs"
+  cache: "data/cache"
+
+# Embedding Model
+embeddings:
+  model: "all-MiniLM-L6-v2"  # Fast, good quality
+  # Alternatives:
+  # - "all-mpnet-base-v2" (better quality, slower)
+  # - "allenai/specter2" (academic papers, slower)
+  cache_embeddings: true
+  batch_size: 32
+
+# Triage Thresholds
+triage:
+  send_to_eater_threshold: 0.70
+  review_threshold: 0.40
+  # Papers below review_threshold are rejected
+
+# Classification
+classification:
+  min_score_to_store: 0.25  # Don't store scores below this
+  top_k_per_facet: 5  # Store top K nodes per facet
+
+# Citation Network
+citations:
+  max_expansion_per_run: 100
+  min_corpus_citations: 2  # Paper must be cited by N corpus papers to queue
+  max_hops: 2  # How far to traverse from seed papers
+
+# Article Eater
+article_eater:
+  executable: "article_eater"
+  default_profile: "standard"
+  default_hitl: "auto"
+  timeout_seconds: 600
+  max_parallel: 1
+
+# Streamlit UI
+ui:
+  page_size: 25
+  max_search_results: 100

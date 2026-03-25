@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/ae.provenance.v1.schema.json",
+  "schema_id": "ae.provenance.v1",
+  "title": "AE Provenance (v1)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "paper_id",
+    "run_id",
+    "created_at",
+    "inputs",
+    "environment",
+    "models",
+    "tools"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ae.provenance.v1"
+    },
+    "paper_id": {
+      "type": "string"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pdf_sha256",
+        "paper_json_sha256"
+      ],
+      "properties": {
+        "pdf_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "paper_json_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "models": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    }
+  }
+}

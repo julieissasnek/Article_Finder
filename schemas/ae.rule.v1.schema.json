@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/ae.rule.v1.schema.json",
+  "schema_id": "ae.rule.v1",
+  "title": "AE Rule Candidate Record (v1)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "rule_id",
+    "paper_id",
+    "rule_type",
+    "lhs",
+    "rhs",
+    "polarity",
+    "strength",
+    "applicability",
+    "evidence_links",
+    "bn_mapping",
+    "ae_confidence"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ae.rule.v1"
+    },
+    "rule_id": {
+      "type": "string"
+    },
+    "paper_id": {
+      "type": "string"
+    },
+    "rule_type": {
+      "type": "string",
+      "enum": [
+        "edge",
+        "cpd_hint",
+        "prior",
+        "constraint",
+        "interaction"
+      ]
+    },
+    "lhs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/var_state"
+      }
+    },
+    "rhs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/var_state"
+      }
+    },
+    "polarity": {
+      "type": "string",
+      "enum": [
+        "positive",
+        "negative",
+        "null",
+        "u_shaped",
+        "unknown"
+      ]
+    },
+    "strength": {
+      "$ref": "#/$defs/strength"
+    },
+    "applicability": {
+      "$ref": "#/$defs/applicability"
+    },
+    "evidence_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "claim_id"
+        ],
+        "properties": {
+          "claim_id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "bn_mapping": {
+      "$ref": "#/$defs/bn_mapping"
+    },
+    "ae_confidence": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    }
+  },
+  "$defs": {
+    "var_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "var",
+        "state"
+      ],
+      "properties": {
+        "var": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        }
+      }
+    },
+    "strength": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string"
+        },
+        "type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    },
+    "applicability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "population",
+        "setting",
+        "boundary_conditions"
+      ],
+      "properties": {
+        "population": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "setting": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "boundary_conditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "bn_mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "node_suggestions",
+        "discretization_hint"
+      ],
+      "properties": {
+        "node_suggestions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "discretization_hint": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

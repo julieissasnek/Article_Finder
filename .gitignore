@@ -1,0 +1,16 @@
+.DS_Store
+**/.DS_Store
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.zip
+*.rej
+article_finder_v3.egg-info/
+articles.db
+data/
+zotero_export/
+new_claude_files_to_chase_articles/
+config/settings.local.yaml

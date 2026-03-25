@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  article_finder:
+    build: .
+    ports:
+      - "8510:8510"
+    environment:
+      - STREAMLIT_SERVER_PORT=8510
+      - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+    restart: unless-stopped

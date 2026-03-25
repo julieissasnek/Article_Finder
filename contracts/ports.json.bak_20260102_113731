@@ -1,0 +1,16 @@
+{
+  "module": "Article Finder",
+  "repo": "article_finder_v3.2.2",
+  "ports": {
+    "ui": {
+      "host": 8501,
+      "protocol": "http",
+      "path": "/",
+      "notes": "Streamlit UI"
+    }
+  },
+  "source": [
+    "docs/USER_GUIDE.md",
+    "cli/main.py"
+  ]
+}

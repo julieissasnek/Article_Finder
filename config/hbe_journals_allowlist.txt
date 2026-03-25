@@ -1,0 +1,271 @@
+# HBE certified journals (from HBE_Zotero_export.bib)
+# One journal name per line; used as a "never auto-reject" allowlist.
+24th Int. Congr. Sound Vib. ICSV
+ACM Trans. Appl. Percept.
+Acta Acustica united with Acustica
+Advanced Engineering Informatics
+Advanced Functional Materials
+Ain Shams Engineering Journal
+American Economic Journal: Applied Economics
+American Scientist
+Annals of the New York Academy of Sciences
+Annual Review of Sociology
+Applied Acoustics
+Applied Ergonomics
+Applied Sciences
+Architectural Engineering and Design Management
+ARCHITECTURAL RESEARCH,
+Architectural Science Review
+Architecture Masters of Science Program: Theses
+Architecture Research
+Archnet-IJAR: International Journal of Architectural Research
+ASHRAE journal
+Attention, Perception, \& Psychophysics
+Automation in Construction
+BAU Journal: Health \& Well-Being
+Behavioral and Brain Sciences
+Behavioral Sciences
+Biol. Psychiatr.
+Biology
+Biophilic design: The theory, science and practice of bringing buildings to life
+British Journal of Psychology
+British Journal of Social Work
+Building Acoustics
+Building and Environment
+Building Research \& Information
+Building Services Engineering Research and Technology
+Building Simulation
+Buildings
+Canadian Journal of Experimental Psychology / Revue canadienne de psychologie expérimentale
+Chronobiology International
+Cities \& Health
+Civil Engineering and Architecture
+Classical and Quantum Gravity
+Cognitive Psychology
+Cognitive Research: Principles and Implications
+Collabra: Psychology
+Color Research \& Application
+Computers \& Education
+Computers \& Fluids
+Computers \& Graphics
+Computers in Biology and Medicine
+Cortex
+Cult. Landsc. Urban Woodl
+Current Biology
+Current Opinion in Behavioral Sciences
+Design Issues
+Educational Psychology Review
+Energies
+Energy and Buildings
+Energy Research \& Social Science
+Environment and Behavior
+Environment and Planning B: Planning and Design
+Environment and …
+Environment, space, place
+Environmental Research
+Ergonomics
+European Journal of Theoretical and Applied Sciences
+European Research on Management and Business Economics
+Evidence based design of light characters and automatic light variation, for a classroom in Malmö
+Evolutionary Studies in Imaginative Culture
+EXCLI Journal; 20:Doc1379; ISSN 1611-2156
+Experimental Brain Research
+Expert Systems with Applications
+Family Process
+Frontiers in Applied Mathematics and Statistics
+Frontiers in Behavioral Neuroscience
+Frontiers in Built Environment
+Frontiers in Forests and Global Change
+Frontiers in Human Neuroscience
+Frontiers in Neuroscience
+Frontiers in Psychiatry
+Frontiers in Psychology
+Frontiers in Public Health
+Frontiers in Sustainable Cities
+Frontiers in Virtual Reality
+Frontiers of Architectural Research
+Game Studies
+Gels
+Geography Compass
+Global Health Economics and Sustainability
+Health \& Place
+Helmet-mounted displays: Sensation, perception, and cognition issues
+HERD: Health Environments Research \& Design Journal
+Historical reflections/Réflèxions historiques
+HortScience
+Human ecology review
+Human Factors: The Journal of the Human Factors and Ergonomics Society
+Indoor Air
+Indoor and Built Environment
+Intelligent Buildings International
+Interlude: Indonesian Journal of Music Research, Development, and Technology
+International Design Journal
+International Journal of Advances in Chemical Engineering and Biological Sciences
+International journal of architectural and environmental engineering
+International Journal of Architectural Computing
+International Journal of Architecture, Engineering and Construction
+International Journal of Biometeorology
+International Journal of Climatology
+International Journal of Community Well-Being
+International Journal of Computer Applications
+International Journal of Design
+International Journal of Distributed Sensor Networks
+International Journal of Environmental Research and Public Health
+International Journal of Environmental Science and Technology
+International Journal of Heritage Studies
+International Journal of Human-Computer Studies
+International Journal of Industrial Ergonomics
+International Journal of Information Management
+International Journal of Modern Physics A
+International Journal of Psychology …
+International Journal of Retail \& Distribution Management
+International Journal of Sustainable Built Environment
+International Journal of Vehicle Noise and Vibration
+IOP Conference Series: Earth and Environmental Science
+Iran University of Science \& Technology
+J. Neurosci.
+JES. Journal of Engineering Sciences
+Journal for ReAttach Therapy and Developmental Diversities
+Journal of Applied Social Psychology
+Journal of Architectural Education
+Journal of Architectural Engineering
+Journal of Architectural/Planning Research and Studies (JARS)
+Journal of Artificial Intelligence in Architecture
+Journal of Arts \& Architecture Research Studies
+Journal of Building Engineering
+Journal of Circadian Rhythms
+Journal of Cognitive Neuroscience
+Journal of Corporate Real Estate
+Journal of Environmental Psychology
+Journal of Ethnic Foods
+Journal of Experimental Psychology: Applied
+Journal of Experimental Psychology: Human Perception and Performance
+Journal of Human Behavior in the Social Environment
+Journal of Interior Design
+Journal of International Social Research
+Journal of Management \& Organization
+Journal of People, Plants, and Environment
+Journal of Personality and Social Psychology
+Journal of Planning Literature
+Journal of Porous Materials
+Journal of Psycholinguistic Research
+Journal of Public Mental Health
+Journal of Roi Kaensarn Academi
+Journal of Rural Studies
+Journal of Sound and Vibration
+Journal of Student Research
+Journal of sustainable development
+Journal of the American Institute for Conservation
+Journal of the American Institute of Planners
+Journal of the American Planning Association
+Journal of the Illuminating Engineering Society
+Journal of the International Colour Association
+Journal of the Optical Society of America
+Journal of Urban Design
+Journal of Urban Research
+Journal of Urban Technology
+Journal of Vision
+Journal of Wood Science
+Judgment and Decision Making
+Land
+Landscape and Urban Planning
+Landscape Architecture Frontiers
+Learning \& Memory
+LEUKOS
+Lighting Research \& Technology
+Lighting Research and Technology
+Materials \& Design
+Multimedia Systems
+Museum Management and Curatorship
+Nature Human Behaviour
+Nature Neuroscience
+Neurosci. Lett.
+Neuroscience
+Neuroscience \& Biobehavioral Reviews
+Neuroscience Letters
+New Trends in Architecture, Planning and Design
+Nexus Network Journal
+Noise and Health
+Noise Control Engineering Journal
+Open House International
+Optics Express
+organization
+Perception
+Perception \& Psychophysics
+Personality and Social Psychology Bulletin
+Perspectives on Psychological Science
+Physical Review Letters
+Physiology \& Behavior
+PLANARCH - Design and Planning Research
+PLOS ONE
+PLoS ONE
+Problems and solutions. Turun yliopisto. Sarja-ser. B osa
+Proc. ACM Hum.-Comput. Interact.
+Proceedings of  the International Conference of Contemporary Affairs in Architecture and Urbanism-ICCAUA
+Proceedings of the IEEE
+Proceedings of the National Academy of Sciences
+Proceedings of the Steklov Institute of Mathematics
+Psychiatric Services
+Psychological Bulletin
+Psychological Research on Urban Society
+Psychological Review
+Psychological Science
+Psychological Theories for Environmental Issues. Chapter
+Psychology
+Psychology of Aesthetics, Creativity, and the Arts
+Psychonomic Bulletin \& Review
+Psychophysiology
+Quality \& Quantity
+Research Policy
+researchgate.net
+Resources, Conservation and Recycling
+Review of General Psychology
+Salud, Ciencia y Tecnología - Serie de Conferencias
+Scandinavian Journal of Work, Environment \& Health
+Science
+Science and Technology for the Built Environment
+Science Education
+Science of The Total Environment
+Scientific Reports
+Seminars in Hearing
+Sensors
+SHS Web of Conferences
+Social \& Cultural Geography
+Solar Energy
+Somnologie
+Studies in Art and Architecture
+Sustainability
+Sustainability (Switzerland)
+Sustainable Cities and Society
+Tectonophysics
+The American Journal of Interdisciplinary Innovations and Research
+The American Journal of Psychology
+The Historic Environment: Policy \& Practice
+The International Journal of Architectonic, Spatial, and Environmental Design
+The Journal of Alternative and Complementary Medicine
+The Journal of Architecture
+The Journal of Positive Psychology
+The Journal of the Acoustical Society of America
+Tourism Geographies
+Traditional Dwellings and Settlements Review,
+Transport Reviews
+Trends in Cognitive Sciences
+U of Minnesota P
+UBS Journal of Engineering, Technology and Applied Sciences
+University of Oldenburg, Department of Physics and Acoustics
+URBAN DESIGN International
+Urban Forestry \& Urban Greening
+Virtual Reality
+Visible Language
+Vision Research
+Visions for Sustainability
+WIREs Cognitive Science
+Wood and Fiber Science
+Wood Material Science \& Engineering
+Working with Older People
+World Health Design: Architecture, Culture, Technology
+باغ نظر
+مجلة العمارة و الفنون و العلوم الإنسانية
+… Network for Traditional Building, Architecture \& …
+… of general psychology
+한국디자인문화학회지

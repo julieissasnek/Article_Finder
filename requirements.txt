@@ -1,0 +1,25 @@
+# Version: 3.2.2
+# Article Finder v3.2 Requirements
+
+# Core
+pyyaml>=6.0
+jsonschema>=4.0
+
+# Data handling
+openpyxl>=3.0
+pandas>=1.5
+numpy>=1.21
+
+# UI
+streamlit>=1.20
+plotly>=5.0
+
+# ML/Embeddings
+sentence-transformers>=2.2
+
+# Network visualization (optional)
+pyvis>=0.3
+
+# Development
+pytest>=7.0
+pytest-cov>=4.0

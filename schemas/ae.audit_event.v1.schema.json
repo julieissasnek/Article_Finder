@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/ae.audit_event.v1.schema.json",
+  "schema_id": "ae.audit_event.v1",
+  "title": "AE Audit Event (v1)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "ts",
+    "run_id",
+    "paper_id",
+    "stage",
+    "event",
+    "data"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ae.audit_event.v1"
+    },
+    "ts": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "paper_id": {
+      "type": "string"
+    },
+    "stage": {
+      "type": "string"
+    },
+    "event": {
+      "type": "string"
+    },
+    "data": {
+      "type": "object"
+    }
+  }
+}

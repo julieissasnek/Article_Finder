@@ -1,0 +1,1863 @@
+# Version: 3.2.2
+# Article Finder v3 - Multi-Tree Taxonomy
+# Living document - version controlled and continuously improved
+
+metadata:
+  version: "0.3.0"
+  created: "2024-12-29"
+  last_updated: "2024-12-29"
+  domain: "neuroarchitecture"
+  description: "Faceted classification system for cognitive and affective architecture research"
+
+# ============================================================================
+# FACET DEFINITIONS
+# ============================================================================
+
+facets:
+  - id: environmental_factors
+    name: "Environmental Factors (IVs)"
+    description: "What physical/sensory attributes vary or are manipulated"
+    
+  - id: outcomes
+    name: "Outcomes (DVs)"
+    description: "What human responses are measured or affected"
+    
+  - id: subjects
+    name: "Subjects (Population)"
+    description: "Who is being studied"
+    
+  - id: settings
+    name: "Settings (Building Typology)"
+    description: "Where the study takes place"
+    
+  - id: methodology
+    name: "Methodology"
+    description: "How the study was conducted"
+    
+  - id: modality
+    name: "Modality (Real/Virtual)"
+    description: "What kind of environment was studied"
+    
+  - id: cross_modal
+    name: "Cross-Modal Interactions"
+    description: "How sensory modalities interact"
+    
+  - id: theory
+    name: "Theoretical Framework"
+    description: "What theory guides the research"
+    
+  - id: evidence_strength
+    name: "Evidence Strength"
+    description: "Quality and type of evidence"
+
+# ============================================================================
+# FACET 1: ENVIRONMENTAL FACTORS (IVs)
+# ============================================================================
+
+environmental_factors:
+  - id: env.luminous
+    name: "Luminous Environment"
+    level: 1
+    children:
+      - id: env.luminous.daylight
+        name: "Daylighting"
+        level: 2
+        seeds:
+          - "natural daylight in buildings"
+          - "daylighting design and window placement"
+          - "daylight factor and illuminance from windows"
+          - "effects of natural light exposure on building occupants"
+        children:
+          - id: env.luminous.daylight.factor
+            name: "Daylight Factor"
+            level: 3
+            seeds: ["daylight factor measurement", "DF percentage"]
+          - id: env.luminous.daylight.direct_sun
+            name: "Direct Sunlight"
+            level: 3
+            seeds: ["direct solar radiation indoors", "sun patches", "sunlight penetration"]
+          - id: env.luminous.daylight.distribution
+            name: "Daylight Distribution"
+            level: 3
+            seeds: ["daylight uniformity", "spatial distribution of natural light"]
+          - id: env.luminous.daylight.dynamics
+            name: "Daylight Dynamics"
+            level: 3
+            seeds: ["temporal variation of daylight", "daylight changes throughout day"]
+            
+      - id: env.luminous.electric
+        name: "Electric Lighting"
+        level: 2
+        seeds:
+          - "artificial lighting in buildings"
+          - "electric light sources and fixtures"
+        children:
+          - id: env.luminous.electric.illuminance
+            name: "Illuminance Level"
+            level: 3
+            seeds: ["lux levels", "illuminance on work plane", "light intensity"]
+          - id: env.luminous.electric.cct
+            name: "Color Temperature"
+            level: 3
+            seeds: ["correlated color temperature", "warm vs cool light", "CCT Kelvin"]
+          - id: env.luminous.electric.spectrum
+            name: "Spectral Composition"
+            level: 3
+            seeds: ["light spectrum", "spectral power distribution", "wavelength composition"]
+          - id: env.luminous.electric.circadian
+            name: "Circadian Lighting"
+            level: 3
+            seeds: ["circadian rhythm lighting", "melanopic content", "non-visual effects of light"]
+          - id: env.luminous.electric.dimming
+            name: "Dimming Control"
+            level: 3
+            seeds: ["dimmable lighting", "light level adjustment", "user control of brightness"]
+            
+      - id: env.luminous.glare
+        name: "Glare"
+        level: 2
+        seeds: ["visual discomfort from brightness", "glare control", "excessive brightness"]
+        children:
+          - id: env.luminous.glare.disability
+            name: "Disability Glare"
+            level: 3
+            seeds: ["veiling luminance", "visibility reduction from glare"]
+          - id: env.luminous.glare.discomfort
+            name: "Discomfort Glare"
+            level: 3
+            seeds: ["glare discomfort", "DGP daylight glare probability", "UGR unified glare rating"]
+            
+      - id: env.luminous.shadow
+        name: "Shadow and Contrast"
+        level: 2
+        seeds: ["light and shadow in architecture", "modeling of forms", "chiaroscuro"]
+        children:
+          - id: env.luminous.shadow.patterns
+            name: "Shadow Patterns"
+            level: 3
+            seeds: ["shadow shapes", "shadow movement", "shadow play"]
+          - id: env.luminous.shadow.contrast
+            name: "Light-Dark Contrast"
+            level: 3
+            seeds: ["luminance ratio", "contrast in lighting", "brightness distribution"]
+
+  - id: env.thermal
+    name: "Thermal Environment"
+    level: 1
+    children:
+      - id: env.thermal.temperature
+        name: "Temperature"
+        level: 2
+        seeds: ["indoor temperature", "thermal conditions", "air temperature in buildings"]
+        children:
+          - id: env.thermal.temperature.air
+            name: "Air Temperature"
+            level: 3
+            seeds: ["dry bulb temperature", "ambient air temperature"]
+          - id: env.thermal.temperature.radiant
+            name: "Radiant Temperature"
+            level: 3
+            seeds: ["mean radiant temperature", "surface temperatures", "radiant heat"]
+          - id: env.thermal.temperature.operative
+            name: "Operative Temperature"
+            level: 3
+            seeds: ["operative temperature", "combined air and radiant"]
+          - id: env.thermal.temperature.gradient
+            name: "Temperature Gradient"
+            level: 3
+            seeds: ["vertical temperature gradient", "thermal stratification", "temperature asymmetry"]
+            
+      - id: env.thermal.humidity
+        name: "Humidity"
+        level: 2
+        seeds: ["indoor humidity", "moisture in air", "relative humidity"]
+        children:
+          - id: env.thermal.humidity.relative
+            name: "Relative Humidity"
+            level: 3
+            seeds: ["RH percentage", "relative humidity level"]
+          - id: env.thermal.humidity.stuffiness
+            name: "Perceived Stuffiness"
+            level: 3
+            seeds: ["stuffy air", "humid discomfort", "muggy conditions"]
+            
+      - id: env.thermal.air_movement
+        name: "Air Movement"
+        level: 2
+        seeds: ["air velocity indoors", "breeze", "ventilation air movement"]
+        children:
+          - id: env.thermal.air_movement.velocity
+            name: "Air Velocity"
+            level: 3
+            seeds: ["air speed", "wind speed indoors"]
+          - id: env.thermal.air_movement.draft
+            name: "Draft"
+            level: 3
+            seeds: ["unwanted air movement", "draft discomfort", "cold draft"]
+          - id: env.thermal.air_movement.natural_vent
+            name: "Natural Ventilation"
+            level: 3
+            seeds: ["cross ventilation", "operable windows", "natural airflow"]
+
+  - id: env.acoustic
+    name: "Acoustic Environment"
+    level: 1
+    children:
+      - id: env.acoustic.noise
+        name: "Noise"
+        level: 2
+        seeds: ["unwanted sound", "noise in buildings", "background noise"]
+        children:
+          - id: env.acoustic.noise.background
+            name: "Background Noise Level"
+            level: 3
+            seeds: ["ambient noise", "Leq", "NC rating", "background sound pressure level"]
+          - id: env.acoustic.noise.hvac
+            name: "HVAC Noise"
+            level: 3
+            seeds: ["mechanical system noise", "air handling noise", "equipment noise"]
+          - id: env.acoustic.noise.traffic
+            name: "Traffic Noise"
+            level: 3
+            seeds: ["road traffic noise", "exterior noise intrusion", "transportation noise"]
+          - id: env.acoustic.noise.intermittent
+            name: "Intermittent Noise"
+            level: 3
+            seeds: ["transient sounds", "peak noise events", "noise variability"]
+            
+      - id: env.acoustic.room
+        name: "Room Acoustics"
+        level: 2
+        seeds: ["architectural acoustics", "room acoustic quality"]
+        children:
+          - id: env.acoustic.room.reverberation
+            name: "Reverberation"
+            level: 3
+            seeds: ["RT60", "reverberation time", "decay time"]
+          - id: env.acoustic.room.absorption
+            name: "Sound Absorption"
+            level: 3
+            seeds: ["acoustic absorption", "absorptive materials", "NRC"]
+          - id: env.acoustic.room.diffusion
+            name: "Sound Diffusion"
+            level: 3
+            seeds: ["acoustic diffusers", "sound scattering"]
+            
+      - id: env.acoustic.speech
+        name: "Speech Environment"
+        level: 2
+        seeds: ["speech communication in buildings", "verbal communication"]
+        children:
+          - id: env.acoustic.speech.intelligibility
+            name: "Speech Intelligibility"
+            level: 3
+            seeds: ["STI speech transmission index", "speech clarity", "understanding speech"]
+          - id: env.acoustic.speech.privacy
+            name: "Speech Privacy"
+            level: 3
+            seeds: ["acoustic privacy", "confidential speech", "overhearing conversations"]
+          - id: env.acoustic.speech.masking
+            name: "Sound Masking"
+            level: 3
+            seeds: ["white noise", "pink noise", "masking systems"]
+            
+      - id: env.acoustic.soundscape
+        name: "Soundscape"
+        level: 2
+        seeds: ["acoustic environment perception", "soundscape quality"]
+        children:
+          - id: env.acoustic.soundscape.natural
+            name: "Natural Sounds"
+            level: 3
+            seeds: ["birdsong", "water sounds", "wind sounds", "nature sounds"]
+          - id: env.acoustic.soundscape.human
+            name: "Human Sounds"
+            level: 3
+            seeds: ["speech sounds", "footsteps", "human activity sounds"]
+          - id: env.acoustic.soundscape.music
+            name: "Music"
+            level: 3
+            seeds: ["background music", "ambient music", "musical environment"]
+
+  - id: env.air_quality
+    name: "Air Quality"
+    level: 1
+    children:
+      - id: env.air_quality.ventilation
+        name: "Ventilation"
+        level: 2
+        seeds: ["fresh air supply", "ventilation rate", "outdoor air"]
+        children:
+          - id: env.air_quality.ventilation.rate
+            name: "Ventilation Rate"
+            level: 3
+            seeds: ["air changes per hour", "ACH", "outdoor air rate", "CFM per person"]
+          - id: env.air_quality.ventilation.co2
+            name: "CO2 Concentration"
+            level: 3
+            seeds: ["carbon dioxide levels", "CO2 ppm", "indoor CO2"]
+            
+      - id: env.air_quality.contaminants
+        name: "Contaminants"
+        level: 2
+        seeds: ["indoor air pollutants", "air quality contaminants"]
+        children:
+          - id: env.air_quality.contaminants.voc
+            name: "VOCs"
+            level: 3
+            seeds: ["volatile organic compounds", "off-gassing", "TVOC"]
+          - id: env.air_quality.contaminants.particulates
+            name: "Particulate Matter"
+            level: 3
+            seeds: ["PM2.5", "PM10", "dust particles", "airborne particles"]
+            
+      - id: env.air_quality.olfactory
+        name: "Olfactory Environment"
+        level: 2
+        seeds: ["smell in buildings", "odor", "scent"]
+        children:
+          - id: env.air_quality.olfactory.pleasant
+            name: "Pleasant Scents"
+            level: 3
+            seeds: ["aromatherapy", "pleasant odors", "scent marketing"]
+          - id: env.air_quality.olfactory.unpleasant
+            name: "Unpleasant Odors"
+            level: 3
+            seeds: ["malodor", "bad smell", "odor complaints"]
+          - id: env.air_quality.olfactory.material
+            name: "Material Odors"
+            level: 3
+            seeds: ["wood smell", "new building smell", "material off-gassing odor"]
+
+  - id: env.spatial
+    name: "Spatial Configuration"
+    level: 1
+    children:
+      - id: env.spatial.volume
+        name: "Volume and Scale"
+        level: 2
+        seeds: ["room size", "spatial volume", "architectural scale"]
+        children:
+          - id: env.spatial.volume.ceiling
+            name: "Ceiling Height"
+            level: 3
+            seeds: ["ceiling height effect", "high ceilings", "low ceilings", "vertical space"]
+          - id: env.spatial.volume.room_size
+            name: "Room Size"
+            level: 3
+            seeds: ["floor area", "room dimensions", "space size"]
+          - id: env.spatial.volume.proportions
+            name: "Proportions"
+            level: 3
+            seeds: ["room proportions", "spatial ratios", "golden ratio in architecture"]
+            
+      - id: env.spatial.enclosure
+        name: "Enclosure"
+        level: 2
+        seeds: ["spatial enclosure", "openness vs closure"]
+        children:
+          - id: env.spatial.enclosure.openness
+            name: "Openness"
+            level: 3
+            seeds: ["open space", "visual openness", "spatial permeability"]
+          - id: env.spatial.enclosure.prospect
+            name: "Prospect"
+            level: 3
+            seeds: ["visual access", "overview", "long views", "prospect theory architecture"]
+          - id: env.spatial.enclosure.refuge
+            name: "Refuge"
+            level: 3
+            seeds: ["protected space", "sheltered areas", "refuge theory architecture"]
+            
+      - id: env.spatial.layout
+        name: "Layout"
+        level: 2
+        seeds: ["floor plan", "spatial layout", "room arrangement"]
+        children:
+          - id: env.spatial.layout.configuration
+            name: "Configuration"
+            level: 3
+            seeds: ["floor plan layout", "room configuration", "spatial organization"]
+          - id: env.spatial.layout.circulation
+            name: "Circulation"
+            level: 3
+            seeds: ["movement paths", "corridors", "circulation routes"]
+          - id: env.spatial.layout.zoning
+            name: "Zoning"
+            level: 3
+            seeds: ["activity zones", "functional zoning", "spatial separation"]
+            
+      - id: env.spatial.density
+        name: "Density"
+        level: 2
+        seeds: ["spatial density", "crowding", "occupancy"]
+        children:
+          - id: env.spatial.density.occupant
+            name: "Occupant Density"
+            level: 3
+            seeds: ["people per square meter", "crowding", "occupancy density"]
+          - id: env.spatial.density.furniture
+            name: "Furniture Density"
+            level: 3
+            seeds: ["furniture crowding", "object density", "visual clutter"]
+            
+      - id: env.spatial.complexity
+        name: "Spatial Complexity"
+        level: 2
+        seeds: ["complexity of space", "spatial information"]
+        children:
+          - id: env.spatial.complexity.level
+            name: "Complexity Level"
+            level: 3
+            seeds: ["visual complexity", "spatial complexity", "information load"]
+          - id: env.spatial.complexity.legibility
+            name: "Legibility"
+            level: 3
+            seeds: ["spatial legibility", "imageability", "ease of understanding space"]
+          - id: env.spatial.complexity.mystery
+            name: "Mystery"
+            level: 3
+            seeds: ["mystery in architecture", "partial views", "spatial curiosity"]
+
+  - id: env.material
+    name: "Materials and Surfaces"
+    level: 1
+    children:
+      - id: env.material.surface
+        name: "Surface Materials"
+        level: 2
+        seeds: ["interior materials", "surface finishes", "material selection"]
+        children:
+          - id: env.material.surface.floor
+            name: "Floor Materials"
+            level: 3
+            seeds: ["flooring", "floor finish", "floor surface"]
+          - id: env.material.surface.wall
+            name: "Wall Materials"
+            level: 3
+            seeds: ["wall finish", "wall covering", "wall surface"]
+          - id: env.material.surface.ceiling
+            name: "Ceiling Materials"
+            level: 3
+            seeds: ["ceiling finish", "ceiling surface", "overhead materials"]
+            
+      - id: env.material.texture
+        name: "Texture"
+        level: 2
+        seeds: ["surface texture", "tactile quality"]
+        children:
+          - id: env.material.texture.visual
+            name: "Visual Texture"
+            level: 3
+            seeds: ["apparent texture", "visual surface quality", "texture appearance"]
+          - id: env.material.texture.tactile
+            name: "Tactile Texture"
+            level: 3
+            seeds: ["touch texture", "surface feel", "haptic quality"]
+          - id: env.material.texture.roughness
+            name: "Roughness"
+            level: 3
+            seeds: ["rough vs smooth", "surface roughness"]
+            
+      - id: env.material.thermal_touch
+        name: "Thermal Touch"
+        level: 2
+        seeds: ["material temperature feel", "warm and cold materials"]
+        children:
+          - id: env.material.thermal_touch.warmth
+            name: "Material Warmth"
+            level: 3
+            seeds: ["warm materials", "wood warmth", "thermal effusivity"]
+          - id: env.material.thermal_touch.coolness
+            name: "Material Coolness"
+            level: 3
+            seeds: ["cool materials", "stone coldness", "metal cold feel"]
+            
+      - id: env.material.authenticity
+        name: "Material Authenticity"
+        level: 2
+        seeds: ["authentic materials", "natural vs synthetic"]
+        children:
+          - id: env.material.authenticity.natural
+            name: "Natural Materials"
+            level: 3
+            seeds: ["natural building materials", "organic materials", "wood stone"]
+          - id: env.material.authenticity.synthetic
+            name: "Synthetic Materials"
+            level: 3
+            seeds: ["artificial materials", "plastic", "manufactured materials"]
+          - id: env.material.authenticity.honesty
+            name: "Material Honesty"
+            level: 3
+            seeds: ["material expression", "honest use of materials", "faux finishes"]
+
+  - id: env.biophilic
+    name: "Biophilic Elements"
+    level: 1
+    children:
+      - id: env.biophilic.nature_in_space
+        name: "Nature in the Space"
+        level: 2
+        seeds: ["indoor nature", "bringing nature indoors"]
+        children:
+          - id: env.biophilic.nature_in_space.plants
+            name: "Indoor Plants"
+            level: 3
+            seeds: ["potted plants", "indoor greenery", "office plants"]
+          - id: env.biophilic.nature_in_space.living_walls
+            name: "Living Walls"
+            level: 3
+            seeds: ["green walls", "vertical gardens", "living facades"]
+          - id: env.biophilic.nature_in_space.water
+            name: "Water Features"
+            level: 3
+            seeds: ["indoor fountains", "water elements", "aquatic features"]
+          - id: env.biophilic.nature_in_space.aquaria
+            name: "Aquaria"
+            level: 3
+            seeds: ["fish tanks", "aquariums in buildings"]
+            
+      - id: env.biophilic.views
+        name: "Nature Views"
+        level: 2
+        seeds: ["views to nature", "window views", "visual access to nature"]
+        children:
+          - id: env.biophilic.views.vegetation
+            name: "Vegetation Views"
+            level: 3
+            seeds: ["views of trees", "garden views", "green views"]
+          - id: env.biophilic.views.sky
+            name: "Sky Views"
+            level: 3
+            seeds: ["view of sky", "skylights", "overhead views"]
+          - id: env.biophilic.views.water_view
+            name: "Water Views"
+            level: 3
+            seeds: ["views of water", "ocean views", "lake views"]
+          - id: env.biophilic.views.depth
+            name: "View Depth"
+            level: 3
+            seeds: ["distant views", "view distance", "panoramic views"]
+            
+      - id: env.biophilic.natural_materials
+        name: "Natural Materials"
+        level: 2
+        seeds: ["biophilic materials", "natural material palette"]
+        children:
+          - id: env.biophilic.natural_materials.wood
+            name: "Wood"
+            level: 3
+            seeds: ["wood in interiors", "timber", "wooden surfaces"]
+          - id: env.biophilic.natural_materials.stone
+            name: "Stone"
+            level: 3
+            seeds: ["natural stone", "rock surfaces", "stone in architecture"]
+          - id: env.biophilic.natural_materials.fibers
+            name: "Natural Fibers"
+            level: 3
+            seeds: ["natural textiles", "wool", "cotton", "plant fibers"]
+            
+      - id: env.biophilic.patterns
+        name: "Biophilic Patterns"
+        level: 2
+        seeds: ["nature-inspired patterns", "organic patterns"]
+        children:
+          - id: env.biophilic.patterns.fractal
+            name: "Fractal Patterns"
+            level: 3
+            seeds: ["fractal geometry", "self-similar patterns", "natural fractals"]
+          - id: env.biophilic.patterns.biomorphic
+            name: "Biomorphic Forms"
+            level: 3
+            seeds: ["organic shapes", "nature-inspired forms", "biomorphic design"]
+
+  - id: env.visual_aesthetics
+    name: "Visual Aesthetics"
+    level: 1
+    children:
+      - id: env.visual_aesthetics.color
+        name: "Color"
+        level: 2
+        seeds: ["color in architecture", "interior colors"]
+        children:
+          - id: env.visual_aesthetics.color.hue
+            name: "Hue"
+            level: 3
+            seeds: ["color hue", "red blue green yellow"]
+          - id: env.visual_aesthetics.color.saturation
+            name: "Saturation"
+            level: 3
+            seeds: ["color saturation", "vivid vs muted colors"]
+          - id: env.visual_aesthetics.color.value
+            name: "Value/Lightness"
+            level: 3
+            seeds: ["light vs dark colors", "color brightness"]
+          - id: env.visual_aesthetics.color.harmony
+            name: "Color Harmony"
+            level: 3
+            seeds: ["color schemes", "complementary colors", "color combinations"]
+          - id: env.visual_aesthetics.color.warmth
+            name: "Color Warmth"
+            level: 3
+            seeds: ["warm vs cool colors", "color temperature psychological"]
+            
+      - id: env.visual_aesthetics.pattern_order
+        name: "Pattern and Order"
+        level: 2
+        seeds: ["visual order", "pattern in architecture"]
+        children:
+          - id: env.visual_aesthetics.pattern_order.symmetry
+            name: "Symmetry"
+            level: 3
+            seeds: ["bilateral symmetry", "symmetrical design", "asymmetry"]
+          - id: env.visual_aesthetics.pattern_order.rhythm
+            name: "Rhythm/Repetition"
+            level: 3
+            seeds: ["visual rhythm", "repetitive elements", "pattern repetition"]
+          - id: env.visual_aesthetics.pattern_order.hierarchy
+            name: "Visual Hierarchy"
+            level: 3
+            seeds: ["dominance", "focal points", "visual emphasis"]
+            
+      - id: env.visual_aesthetics.complexity_coherence
+        name: "Complexity-Coherence"
+        level: 2
+        seeds: ["visual complexity", "coherence in design"]
+        children:
+          - id: env.visual_aesthetics.complexity_coherence.complexity
+            name: "Visual Complexity"
+            level: 3
+            seeds: ["information density", "visual richness", "ornament density"]
+          - id: env.visual_aesthetics.complexity_coherence.fractal_dim
+            name: "Fractal Dimension"
+            level: 3
+            seeds: ["D fractal dimension", "visual fractal properties"]
+          - id: env.visual_aesthetics.complexity_coherence.edge_density
+            name: "Edge Density"
+            level: 3
+            seeds: ["contour density", "edge frequency", "visual busyness"]
+
+  - id: env.wayfinding
+    name: "Wayfinding and Orientation"
+    level: 1
+    children:
+      - id: env.wayfinding.cues
+        name: "Spatial Cues"
+        level: 2
+        seeds: ["wayfinding cues", "orientation aids"]
+        children:
+          - id: env.wayfinding.cues.landmarks
+            name: "Landmarks"
+            level: 3
+            seeds: ["visual landmarks", "reference points", "memorable features"]
+          - id: env.wayfinding.cues.signage
+            name: "Signage"
+            level: 3
+            seeds: ["directional signs", "wayfinding signage", "information signs"]
+          - id: env.wayfinding.cues.differentiation
+            name: "Spatial Differentiation"
+            level: 3
+            seeds: ["distinct areas", "zone differentiation", "varied character"]
+          - id: env.wayfinding.cues.visual_access
+            name: "Visual Access"
+            level: 3
+            seeds: ["sightlines", "visual connectivity", "see-through spaces"]
+
+  - id: env.control
+    name: "User Control"
+    level: 1
+    children:
+      - id: env.control.lighting
+        name: "Lighting Control"
+        level: 2
+        seeds: ["user control of lighting", "light switches", "dimming"]
+      - id: env.control.thermal
+        name: "Thermal Control"
+        level: 2
+        seeds: ["thermostat access", "personal thermal control", "operable windows"]
+      - id: env.control.acoustic
+        name: "Acoustic Control"
+        level: 2
+        seeds: ["sound control by occupants", "closing doors", "acoustic adjustments"]
+      - id: env.control.spatial
+        name: "Spatial Control"
+        level: 2
+        seeds: ["furniture rearrangement", "personalizing space", "territorial control"]
+
+# ============================================================================
+# FACET 2: OUTCOMES (DVs)
+# ============================================================================
+
+outcomes:
+  - id: out.cognitive
+    name: "Cognitive"
+    level: 1
+    children:
+      - id: out.cognitive.attention
+        name: "Attention"
+        level: 2
+        seeds: ["attention and focus", "concentration", "attentional performance"]
+        children:
+          - id: out.cognitive.attention.sustained
+            name: "Sustained Attention"
+            level: 3
+            seeds: ["vigilance", "continuous attention", "sustained focus"]
+          - id: out.cognitive.attention.selective
+            name: "Selective Attention"
+            level: 3
+            seeds: ["focused attention", "filtering distractions", "attentional selection"]
+          - id: out.cognitive.attention.restoration
+            name: "Attention Restoration"
+            level: 3
+            seeds: ["attentional recovery", "directed attention fatigue", "mental restoration"]
+            
+      - id: out.cognitive.memory
+        name: "Memory"
+        level: 2
+        seeds: ["memory performance", "recall", "memory function"]
+        children:
+          - id: out.cognitive.memory.working
+            name: "Working Memory"
+            level: 3
+            seeds: ["short-term memory", "working memory capacity", "cognitive load"]
+          - id: out.cognitive.memory.long_term
+            name: "Long-term Memory"
+            level: 3
+            seeds: ["memory consolidation", "recall", "long-term retention"]
+          - id: out.cognitive.memory.spatial
+            name: "Spatial Memory"
+            level: 3
+            seeds: ["spatial recall", "cognitive map", "place memory"]
+            
+      - id: out.cognitive.executive
+        name: "Executive Function"
+        level: 2
+        seeds: ["executive function", "cognitive control"]
+        children:
+          - id: out.cognitive.executive.inhibition
+            name: "Inhibition"
+            level: 3
+            seeds: ["response inhibition", "impulse control", "self-regulation"]
+          - id: out.cognitive.executive.flexibility
+            name: "Cognitive Flexibility"
+            level: 3
+            seeds: ["task switching", "mental flexibility", "set shifting"]
+          - id: out.cognitive.executive.planning
+            name: "Planning"
+            level: 3
+            seeds: ["planning ability", "goal-directed behavior", "sequencing"]
+            
+      - id: out.cognitive.creativity
+        name: "Creativity"
+        level: 2
+        seeds: ["creative thinking", "innovation", "ideation"]
+        children:
+          - id: out.cognitive.creativity.divergent
+            name: "Divergent Thinking"
+            level: 3
+            seeds: ["idea generation", "brainstorming", "alternative uses"]
+          - id: out.cognitive.creativity.insight
+            name: "Insight Problem Solving"
+            level: 3
+            seeds: ["aha moments", "insight solutions", "creative problem solving"]
+            
+      - id: out.cognitive.learning
+        name: "Learning"
+        level: 2
+        seeds: ["learning outcomes", "educational performance"]
+        children:
+          - id: out.cognitive.learning.acquisition
+            name: "Learning Acquisition"
+            level: 3
+            seeds: ["skill acquisition", "learning rate", "knowledge acquisition"]
+          - id: out.cognitive.learning.academic
+            name: "Academic Performance"
+            level: 3
+            seeds: ["test scores", "grades", "academic achievement"]
+            
+      - id: out.cognitive.fatigue
+        name: "Mental Fatigue"
+        level: 2
+        seeds: ["cognitive fatigue", "mental exhaustion"]
+        children:
+          - id: out.cognitive.fatigue.load
+            name: "Cognitive Load"
+            level: 3
+            seeds: ["mental workload", "information overload", "processing demands"]
+          - id: out.cognitive.fatigue.exhaustion
+            name: "Mental Exhaustion"
+            level: 3
+            seeds: ["mental tiredness", "cognitive depletion", "brain fog"]
+
+  - id: out.affective
+    name: "Affective"
+    level: 1
+    children:
+      - id: out.affective.mood
+        name: "Mood"
+        level: 2
+        seeds: ["mood states", "emotional state"]
+        children:
+          - id: out.affective.mood.positive
+            name: "Positive Affect"
+            level: 3
+            seeds: ["happiness", "joy", "positive emotions", "pleasant mood"]
+          - id: out.affective.mood.negative
+            name: "Negative Affect"
+            level: 3
+            seeds: ["sadness", "negative emotions", "unpleasant mood"]
+          - id: out.affective.mood.arousal
+            name: "Arousal Level"
+            level: 3
+            seeds: ["activation", "alertness", "energy level", "arousal"]
+            
+      - id: out.affective.stress
+        name: "Stress"
+        level: 2
+        seeds: ["stress response", "psychological stress"]
+        children:
+          - id: out.affective.stress.perceived
+            name: "Perceived Stress"
+            level: 3
+            seeds: ["subjective stress", "stress perception", "feeling stressed"]
+          - id: out.affective.stress.anxiety
+            name: "Anxiety"
+            level: 3
+            seeds: ["anxious feelings", "worry", "anxiety symptoms"]
+          - id: out.affective.stress.recovery
+            name: "Stress Recovery"
+            level: 3
+            seeds: ["recovery from stress", "stress relief", "relaxation response"]
+            
+      - id: out.affective.aesthetic
+        name: "Aesthetic Response"
+        level: 2
+        seeds: ["aesthetic experience", "beauty perception"]
+        children:
+          - id: out.affective.aesthetic.pleasure
+            name: "Aesthetic Pleasure"
+            level: 3
+            seeds: ["beauty appreciation", "aesthetic enjoyment", "pleasure from aesthetics"]
+          - id: out.affective.aesthetic.interest
+            name: "Interest"
+            level: 3
+            seeds: ["curiosity", "fascination", "engagement with aesthetics"]
+          - id: out.affective.aesthetic.preference
+            name: "Preference"
+            level: 3
+            seeds: ["aesthetic preference", "liking", "environmental preference"]
+            
+      - id: out.affective.comfort
+        name: "Psychological Comfort"
+        level: 2
+        seeds: ["feeling comfortable", "psychological comfort"]
+        children:
+          - id: out.affective.comfort.safety
+            name: "Sense of Safety"
+            level: 3
+            seeds: ["feeling safe", "security perception", "perceived safety"]
+          - id: out.affective.comfort.belonging
+            name: "Sense of Belonging"
+            level: 3
+            seeds: ["feeling at home", "belonging", "fitting in"]
+            
+      - id: out.affective.place
+        name: "Place Response"
+        level: 2
+        seeds: ["response to place", "place experience"]
+        children:
+          - id: out.affective.place.attachment
+            name: "Place Attachment"
+            level: 3
+            seeds: ["emotional bond to place", "place attachment", "rootedness"]
+          - id: out.affective.place.identity
+            name: "Place Identity"
+            level: 3
+            seeds: ["place identity", "environmental self", "place in identity"]
+
+  - id: out.social
+    name: "Social"
+    level: 1
+    children:
+      - id: out.social.communication
+        name: "Communication"
+        level: 2
+        seeds: ["interpersonal communication", "social interaction"]
+        children:
+          - id: out.social.communication.frequency
+            name: "Interaction Frequency"
+            level: 3
+            seeds: ["frequency of conversations", "social contact rate"]
+          - id: out.social.communication.duration
+            name: "Interaction Duration"
+            level: 3
+            seeds: ["length of conversations", "time spent talking"]
+          - id: out.social.communication.quality
+            name: "Interaction Quality"
+            level: 3
+            seeds: ["meaningful conversations", "depth of interaction"]
+            
+      - id: out.social.collaboration
+        name: "Collaboration"
+        level: 2
+        seeds: ["collaborative work", "teamwork"]
+        children:
+          - id: out.social.collaboration.teamwork
+            name: "Teamwork"
+            level: 3
+            seeds: ["team performance", "group collaboration", "working together"]
+          - id: out.social.collaboration.knowledge
+            name: "Knowledge Sharing"
+            level: 3
+            seeds: ["information exchange", "knowledge transfer", "sharing ideas"]
+            
+      - id: out.social.cohesion
+        name: "Social Cohesion"
+        level: 2
+        seeds: ["social bonds", "community feeling"]
+        children:
+          - id: out.social.cohesion.community
+            name: "Sense of Community"
+            level: 3
+            seeds: ["community belonging", "neighborhood cohesion"]
+          - id: out.social.cohesion.trust
+            name: "Trust"
+            level: 3
+            seeds: ["interpersonal trust", "social trust"]
+            
+      - id: out.social.prosocial
+        name: "Prosocial Behavior"
+        level: 2
+        seeds: ["helping behavior", "prosocial actions"]
+        children:
+          - id: out.social.prosocial.helping
+            name: "Helping"
+            level: 3
+            seeds: ["helping others", "assistance behavior"]
+          - id: out.social.prosocial.altruism
+            name: "Altruism"
+            level: 3
+            seeds: ["altruistic behavior", "selfless acts"]
+
+  - id: out.behavioral
+    name: "Behavioral"
+    level: 1
+    children:
+      - id: out.behavioral.productivity
+        name: "Productivity"
+        level: 2
+        seeds: ["work output", "productive behavior"]
+        children:
+          - id: out.behavioral.productivity.performance
+            name: "Task Performance"
+            level: 3
+            seeds: ["work performance", "task completion", "output quality"]
+          - id: out.behavioral.productivity.efficiency
+            name: "Efficiency"
+            level: 3
+            seeds: ["work efficiency", "time on task", "output rate"]
+            
+      - id: out.behavioral.movement
+        name: "Movement"
+        level: 2
+        seeds: ["physical activity", "movement behavior"]
+        children:
+          - id: out.behavioral.movement.activity
+            name: "Physical Activity"
+            level: 3
+            seeds: ["exercise", "active behavior", "movement levels"]
+          - id: out.behavioral.movement.sedentary
+            name: "Sedentary Behavior"
+            level: 3
+            seeds: ["sitting time", "inactivity", "sedentary time"]
+          - id: out.behavioral.movement.patterns
+            name: "Movement Patterns"
+            level: 3
+            seeds: ["circulation patterns", "pedestrian flow", "movement routes"]
+            
+      - id: out.behavioral.wayfinding
+        name: "Wayfinding Behavior"
+        level: 2
+        seeds: ["navigation behavior", "finding one's way"]
+        children:
+          - id: out.behavioral.wayfinding.errors
+            name: "Navigation Errors"
+            level: 3
+            seeds: ["getting lost", "wayfinding mistakes", "wrong turns"]
+          - id: out.behavioral.wayfinding.efficiency
+            name: "Route Efficiency"
+            level: 3
+            seeds: ["path efficiency", "shortest route", "navigation time"]
+            
+      - id: out.behavioral.space_use
+        name: "Space Use"
+        level: 2
+        seeds: ["use of space", "occupancy patterns"]
+        children:
+          - id: out.behavioral.space_use.dwell
+            name: "Dwell Time"
+            level: 3
+            seeds: ["time spent in space", "duration of stay"]
+          - id: out.behavioral.space_use.occupancy
+            name: "Occupancy Patterns"
+            level: 3
+            seeds: ["space utilization", "occupancy rates"]
+
+  - id: out.physiological
+    name: "Physiological"
+    level: 1
+    children:
+      - id: out.physiological.autonomic
+        name: "Autonomic"
+        level: 2
+        seeds: ["autonomic nervous system", "physiological arousal"]
+        children:
+          - id: out.physiological.autonomic.hr
+            name: "Heart Rate/HRV"
+            level: 3
+            seeds: ["heart rate", "heart rate variability", "HRV", "cardiac activity"]
+          - id: out.physiological.autonomic.eda
+            name: "Electrodermal Activity"
+            level: 3
+            seeds: ["skin conductance", "GSR", "EDA", "galvanic skin response"]
+          - id: out.physiological.autonomic.bp
+            name: "Blood Pressure"
+            level: 3
+            seeds: ["blood pressure", "systolic", "diastolic", "BP"]
+          - id: out.physiological.autonomic.cortisol
+            name: "Cortisol"
+            level: 3
+            seeds: ["cortisol levels", "salivary cortisol", "stress hormone"]
+            
+      - id: out.physiological.circadian
+        name: "Circadian"
+        level: 2
+        seeds: ["circadian rhythms", "biological clock"]
+        children:
+          - id: out.physiological.circadian.melatonin
+            name: "Melatonin"
+            level: 3
+            seeds: ["melatonin levels", "melatonin suppression"]
+          - id: out.physiological.circadian.sleep
+            name: "Sleep Quality"
+            level: 3
+            seeds: ["sleep quality", "sleep duration", "sleep efficiency"]
+          - id: out.physiological.circadian.alertness
+            name: "Alertness Rhythm"
+            level: 3
+            seeds: ["alertness", "daytime sleepiness", "circadian alertness"]
+
+  - id: out.neural
+    name: "Neural"
+    level: 1
+    children:
+      - id: out.neural.eeg
+        name: "EEG"
+        level: 2
+        seeds: ["electroencephalography", "brain electrical activity"]
+        children:
+          - id: out.neural.eeg.alpha
+            name: "Alpha Activity"
+            level: 3
+            seeds: ["alpha waves", "alpha power", "8-12 Hz"]
+          - id: out.neural.eeg.theta
+            name: "Theta Activity"
+            level: 3
+            seeds: ["theta waves", "theta power", "4-8 Hz"]
+          - id: out.neural.eeg.beta
+            name: "Beta Activity"
+            level: 3
+            seeds: ["beta waves", "beta power", "13-30 Hz"]
+          - id: out.neural.eeg.asymmetry
+            name: "Frontal Asymmetry"
+            level: 3
+            seeds: ["frontal alpha asymmetry", "approach withdrawal"]
+            
+      - id: out.neural.fmri
+        name: "fMRI"
+        level: 2
+        seeds: ["functional magnetic resonance imaging", "brain activation"]
+        children:
+          - id: out.neural.fmri.pfc
+            name: "PFC Activation"
+            level: 3
+            seeds: ["prefrontal cortex", "frontal activation"]
+          - id: out.neural.fmri.amygdala
+            name: "Amygdala Response"
+            level: 3
+            seeds: ["amygdala activation", "limbic response"]
+          - id: out.neural.fmri.reward
+            name: "Reward Circuits"
+            level: 3
+            seeds: ["striatum", "reward processing", "nucleus accumbens"]
+
+  - id: out.health
+    name: "Health"
+    level: 1
+    children:
+      - id: out.health.sbs
+        name: "Sick Building Syndrome"
+        level: 2
+        seeds: ["sick building syndrome", "building-related illness"]
+      - id: out.health.recovery
+        name: "Recovery/Healing"
+        level: 2
+        seeds: ["patient recovery", "healing", "recuperation"]
+      - id: out.health.wellbeing
+        name: "General Wellbeing"
+        level: 2
+        seeds: ["overall wellbeing", "quality of life", "health status"]
+
+# ============================================================================
+# FACET 3: SUBJECTS
+# ============================================================================
+
+subjects:
+  - id: subj.age
+    name: "Age Group"
+    level: 1
+    children:
+      - id: subj.age.children
+        name: "Children"
+        level: 2
+        seeds: ["children participants", "pediatric", "young children"]
+        children:
+          - id: subj.age.children.preschool
+            name: "Preschool"
+            level: 3
+            seeds: ["preschoolers", "3-5 years", "kindergarten"]
+          - id: subj.age.children.school_age
+            name: "School Age"
+            level: 3
+            seeds: ["school children", "6-12 years", "elementary"]
+      - id: subj.age.adolescents
+        name: "Adolescents"
+        level: 2
+        seeds: ["teenagers", "adolescents", "13-17 years"]
+      - id: subj.age.adults
+        name: "Adults"
+        level: 2
+        seeds: ["adult participants", "18-65 years"]
+        children:
+          - id: subj.age.adults.young
+            name: "Young Adults"
+            level: 3
+            seeds: ["young adults", "18-30 years", "college age"]
+          - id: subj.age.adults.middle
+            name: "Middle-Aged"
+            level: 3
+            seeds: ["middle-aged", "30-65 years"]
+      - id: subj.age.elderly
+        name: "Elderly"
+        level: 2
+        seeds: ["older adults", "elderly", "seniors", "65+ years"]
+        children:
+          - id: subj.age.elderly.independent
+            name: "Independent Elderly"
+            level: 3
+            seeds: ["independent seniors", "active aging"]
+          - id: subj.age.elderly.dementia
+            name: "Dementia Patients"
+            level: 3
+            seeds: ["dementia", "Alzheimer's", "cognitive impairment elderly"]
+
+  - id: subj.role
+    name: "Role"
+    level: 1
+    children:
+      - id: subj.role.students
+        name: "Students"
+        level: 2
+        seeds: ["student participants", "learners"]
+        children:
+          - id: subj.role.students.k12
+            name: "K-12 Students"
+            level: 3
+            seeds: ["school students", "K-12", "primary secondary students"]
+          - id: subj.role.students.university
+            name: "University Students"
+            level: 3
+            seeds: ["college students", "undergraduate", "university students"]
+      - id: subj.role.workers
+        name: "Workers"
+        level: 2
+        seeds: ["employees", "workers", "occupants"]
+        children:
+          - id: subj.role.workers.office
+            name: "Office Workers"
+            level: 3
+            seeds: ["office employees", "knowledge workers", "white collar"]
+          - id: subj.role.workers.healthcare
+            name: "Healthcare Staff"
+            level: 3
+            seeds: ["nurses", "doctors", "healthcare workers"]
+          - id: subj.role.workers.industrial
+            name: "Industrial Workers"
+            level: 3
+            seeds: ["factory workers", "manufacturing", "industrial employees"]
+      - id: subj.role.patients
+        name: "Patients"
+        level: 2
+        seeds: ["hospital patients", "medical patients"]
+        children:
+          - id: subj.role.patients.general
+            name: "General Medical"
+            level: 3
+            seeds: ["hospitalized patients", "inpatients"]
+          - id: subj.role.patients.psychiatric
+            name: "Psychiatric"
+            level: 3
+            seeds: ["psychiatric patients", "mental health patients"]
+          - id: subj.role.patients.pediatric
+            name: "Pediatric Patients"
+            level: 3
+            seeds: ["child patients", "pediatric care"]
+      - id: subj.role.residents
+        name: "Residents"
+        level: 2
+        seeds: ["home residents", "occupants of housing"]
+
+  - id: subj.special
+    name: "Special Populations"
+    level: 1
+    children:
+      - id: subj.special.neurodiverse
+        name: "Neurodiverse"
+        level: 2
+        seeds: ["neurodivergent", "neurological differences"]
+        children:
+          - id: subj.special.neurodiverse.autism
+            name: "Autism Spectrum"
+            level: 3
+            seeds: ["autism", "ASD", "autistic individuals"]
+          - id: subj.special.neurodiverse.adhd
+            name: "ADHD"
+            level: 3
+            seeds: ["ADHD", "attention deficit"]
+      - id: subj.special.sensory_impaired
+        name: "Sensory Impaired"
+        level: 2
+        seeds: ["sensory disabilities"]
+        children:
+          - id: subj.special.sensory_impaired.visual
+            name: "Visually Impaired"
+            level: 3
+            seeds: ["blind", "low vision", "visual impairment"]
+          - id: subj.special.sensory_impaired.hearing
+            name: "Hearing Impaired"
+            level: 3
+            seeds: ["deaf", "hard of hearing", "hearing impairment"]
+
+  - id: subj.cultural
+    name: "Cultural/Geographic"
+    level: 1
+    children:
+      - id: subj.cultural.western
+        name: "Western"
+        level: 2
+        seeds: ["Western participants", "North American", "European"]
+      - id: subj.cultural.east_asian
+        name: "East Asian"
+        level: 2
+        seeds: ["Chinese", "Japanese", "Korean", "East Asian"]
+      - id: subj.cultural.south_asian
+        name: "South Asian"
+        level: 2
+        seeds: ["Indian", "South Asian", "subcontinental"]
+      - id: subj.cultural.cross_cultural
+        name: "Cross-Cultural"
+        level: 2
+        seeds: ["cross-cultural comparison", "cultural differences", "multi-cultural"]
+
+# ============================================================================
+# FACET 4: SETTINGS
+# ============================================================================
+
+settings:
+  - id: set.educational
+    name: "Educational"
+    level: 1
+    children:
+      - id: set.educational.classroom
+        name: "Classroom"
+        level: 2
+        seeds: ["classroom environment", "school classroom"]
+        children:
+          - id: set.educational.classroom.k12
+            name: "K-12 Classroom"
+            level: 3
+            seeds: ["school classroom", "primary classroom", "secondary classroom"]
+          - id: set.educational.classroom.university
+            name: "University Classroom"
+            level: 3
+            seeds: ["lecture hall", "university classroom", "college classroom"]
+      - id: set.educational.library
+        name: "Library"
+        level: 2
+        seeds: ["library space", "reading room"]
+      - id: set.educational.lab
+        name: "Educational Lab"
+        level: 2
+        seeds: ["school laboratory", "teaching lab"]
+
+  - id: set.workplace
+    name: "Workplace"
+    level: 1
+    children:
+      - id: set.workplace.office
+        name: "Office"
+        level: 2
+        seeds: ["office environment", "workplace"]
+        children:
+          - id: set.workplace.office.open
+            name: "Open Plan"
+            level: 3
+            seeds: ["open plan office", "open office", "cubicle farm"]
+          - id: set.workplace.office.private
+            name: "Private Office"
+            level: 3
+            seeds: ["enclosed office", "private office", "individual office"]
+          - id: set.workplace.office.activity
+            name: "Activity-Based"
+            level: 3
+            seeds: ["activity-based working", "ABW", "hot desking"]
+          - id: set.workplace.office.coworking
+            name: "Coworking"
+            level: 3
+            seeds: ["coworking space", "shared workspace"]
+      - id: set.workplace.meeting
+        name: "Meeting Room"
+        level: 2
+        seeds: ["conference room", "meeting space"]
+      - id: set.workplace.industrial
+        name: "Industrial"
+        level: 2
+        seeds: ["factory", "manufacturing facility", "industrial space"]
+
+  - id: set.healthcare
+    name: "Healthcare"
+    level: 1
+    children:
+      - id: set.healthcare.patient_room
+        name: "Patient Room"
+        level: 2
+        seeds: ["hospital room", "patient room", "inpatient room"]
+      - id: set.healthcare.waiting
+        name: "Waiting Area"
+        level: 2
+        seeds: ["waiting room", "lobby", "reception area"]
+      - id: set.healthcare.icu
+        name: "ICU"
+        level: 2
+        seeds: ["intensive care unit", "ICU", "critical care"]
+      - id: set.healthcare.psychiatric
+        name: "Psychiatric Unit"
+        level: 2
+        seeds: ["psychiatric ward", "mental health unit"]
+      - id: set.healthcare.senior
+        name: "Senior Living"
+        level: 2
+        seeds: ["nursing home", "assisted living", "senior care"]
+        children:
+          - id: set.healthcare.senior.memory
+            name: "Memory Care"
+            level: 3
+            seeds: ["dementia unit", "memory care", "Alzheimer's facility"]
+
+  - id: set.residential
+    name: "Residential"
+    level: 1
+    children:
+      - id: set.residential.single_family
+        name: "Single Family Home"
+        level: 2
+        seeds: ["house", "single family dwelling"]
+      - id: set.residential.apartment
+        name: "Apartment"
+        level: 2
+        seeds: ["apartment", "flat", "multi-family housing"]
+      - id: set.residential.dormitory
+        name: "Dormitory"
+        level: 2
+        seeds: ["dorm", "student housing", "residence hall"]
+
+  - id: set.public
+    name: "Public/Commercial"
+    level: 1
+    children:
+      - id: set.public.retail
+        name: "Retail"
+        level: 2
+        seeds: ["store", "shop", "retail environment"]
+      - id: set.public.restaurant
+        name: "Restaurant"
+        level: 2
+        seeds: ["restaurant", "dining space", "cafe"]
+      - id: set.public.museum
+        name: "Museum/Gallery"
+        level: 2
+        seeds: ["museum", "gallery", "exhibition space"]
+      - id: set.public.transit
+        name: "Transportation"
+        level: 2
+        seeds: ["train station", "airport", "transit hub"]
+
+  - id: set.outdoor
+    name: "Outdoor"
+    level: 1
+    children:
+      - id: set.outdoor.plaza
+        name: "Urban Plaza"
+        level: 2
+        seeds: ["public plaza", "town square", "urban open space"]
+      - id: set.outdoor.park
+        name: "Park"
+        level: 2
+        seeds: ["urban park", "green space", "public park"]
+      - id: set.outdoor.street
+        name: "Streetscape"
+        level: 2
+        seeds: ["street environment", "sidewalk", "pedestrian street"]
+
+  - id: set.laboratory
+    name: "Laboratory Setting"
+    level: 1
+    children:
+      - id: set.laboratory.controlled
+        name: "Controlled Room"
+        level: 2
+        seeds: ["laboratory room", "controlled environment", "test chamber"]
+      - id: set.laboratory.chamber
+        name: "Environmental Chamber"
+        level: 2
+        seeds: ["climate chamber", "thermal chamber", "test facility"]
+
+# ============================================================================
+# FACET 5: METHODOLOGY
+# ============================================================================
+
+methodology:
+  - id: meth.experimental
+    name: "Experimental"
+    level: 1
+    children:
+      - id: meth.experimental.lab
+        name: "Laboratory Experiment"
+        level: 2
+        seeds: ["laboratory study", "controlled experiment"]
+        children:
+          - id: meth.experimental.lab.rct
+            name: "Randomized Controlled"
+            level: 3
+            seeds: ["RCT", "randomized controlled trial", "random assignment"]
+          - id: meth.experimental.lab.within
+            name: "Within-Subjects"
+            level: 3
+            seeds: ["within-subjects design", "repeated measures"]
+          - id: meth.experimental.lab.between
+            name: "Between-Subjects"
+            level: 3
+            seeds: ["between-subjects design", "independent groups"]
+      - id: meth.experimental.field
+        name: "Field Experiment"
+        level: 2
+        seeds: ["field study", "real-world experiment"]
+        children:
+          - id: meth.experimental.field.randomized
+            name: "Randomized Field"
+            level: 3
+            seeds: ["randomized field trial", "field RCT"]
+          - id: meth.experimental.field.quasi
+            name: "Quasi-Experimental"
+            level: 3
+            seeds: ["quasi-experiment", "natural experiment"]
+
+  - id: meth.observational
+    name: "Observational"
+    level: 1
+    children:
+      - id: meth.observational.cross_sectional
+        name: "Cross-Sectional"
+        level: 2
+        seeds: ["cross-sectional study", "snapshot study"]
+      - id: meth.observational.longitudinal
+        name: "Longitudinal"
+        level: 2
+        seeds: ["longitudinal study", "follow-up study"]
+      - id: meth.observational.case_study
+        name: "Case Study"
+        level: 2
+        seeds: ["case study", "single case"]
+
+  - id: meth.survey
+    name: "Survey"
+    level: 1
+    children:
+      - id: meth.survey.questionnaire
+        name: "Questionnaire"
+        level: 2
+        seeds: ["survey questionnaire", "self-report"]
+      - id: meth.survey.poe
+        name: "Post-Occupancy Evaluation"
+        level: 2
+        seeds: ["POE", "post-occupancy", "building evaluation"]
+
+  - id: meth.physiological
+    name: "Physiological Measurement"
+    level: 1
+    children:
+      - id: meth.physiological.neuro
+        name: "Neuroimaging"
+        level: 2
+        seeds: ["brain imaging", "neuroimaging"]
+        children:
+          - id: meth.physiological.neuro.eeg
+            name: "EEG"
+            level: 3
+            seeds: ["electroencephalography", "EEG recording"]
+          - id: meth.physiological.neuro.fmri
+            name: "fMRI"
+            level: 3
+            seeds: ["functional MRI", "fMRI study"]
+          - id: meth.physiological.neuro.fnirs
+            name: "fNIRS"
+            level: 3
+            seeds: ["functional near-infrared", "fNIRS"]
+      - id: meth.physiological.autonomic
+        name: "Autonomic Measures"
+        level: 2
+        seeds: ["autonomic measurement", "physiological recording"]
+      - id: meth.physiological.eye
+        name: "Eye Tracking"
+        level: 2
+        seeds: ["eye tracking", "gaze tracking", "visual attention"]
+
+  - id: meth.synthesis
+    name: "Synthesis"
+    level: 1
+    children:
+      - id: meth.synthesis.meta
+        name: "Meta-Analysis"
+        level: 2
+        seeds: ["meta-analysis", "quantitative synthesis"]
+      - id: meth.synthesis.systematic
+        name: "Systematic Review"
+        level: 2
+        seeds: ["systematic review", "systematic literature review"]
+      - id: meth.synthesis.narrative
+        name: "Narrative Review"
+        level: 2
+        seeds: ["literature review", "narrative review"]
+
+# ============================================================================
+# FACET 6: MODALITY
+# ============================================================================
+
+modality:
+  - id: mod.physical
+    name: "Physical Environment"
+    level: 1
+    children:
+      - id: mod.physical.real
+        name: "Real Building"
+        level: 2
+        seeds: ["actual building", "real environment", "in-situ"]
+        children:
+          - id: mod.physical.real.insitu
+            name: "In-Situ"
+            level: 3
+            seeds: ["field setting", "real-world location"]
+          - id: mod.physical.real.poe
+            name: "Post-Occupancy"
+            level: 3
+            seeds: ["occupied building", "existing building"]
+      - id: mod.physical.mockup
+        name: "Mock-Up"
+        level: 2
+        seeds: ["physical mock-up", "full-scale model"]
+        children:
+          - id: mod.physical.mockup.full
+            name: "Full-Scale"
+            level: 3
+            seeds: ["full-scale mock-up", "1:1 model"]
+          - id: mod.physical.mockup.partial
+            name: "Partial"
+            level: 3
+            seeds: ["partial mock-up", "room mock-up"]
+
+  - id: mod.simulated
+    name: "Simulated Environment"
+    level: 1
+    children:
+      - id: mod.simulated.vr
+        name: "Virtual Reality"
+        level: 2
+        seeds: ["VR environment", "virtual reality"]
+        children:
+          - id: mod.simulated.vr.hmd
+            name: "HMD VR"
+            level: 3
+            seeds: ["head-mounted display", "VR headset", "immersive VR"]
+          - id: mod.simulated.vr.cave
+            name: "CAVE"
+            level: 3
+            seeds: ["CAVE system", "projection-based VR"]
+          - id: mod.simulated.vr.desktop
+            name: "Desktop VR"
+            level: 3
+            seeds: ["desktop virtual environment", "screen-based VR"]
+      - id: mod.simulated.ar
+        name: "Augmented Reality"
+        level: 2
+        seeds: ["AR", "augmented reality", "mixed reality"]
+      - id: mod.simulated.photo
+        name: "Photographic"
+        level: 2
+        seeds: ["photographs", "images of buildings"]
+        children:
+          - id: mod.simulated.photo.static
+            name: "Static Images"
+            level: 3
+            seeds: ["photographs", "still images"]
+          - id: mod.simulated.photo.panoramic
+            name: "Panoramic/360"
+            level: 3
+            seeds: ["360 images", "panoramic photos"]
+      - id: mod.simulated.video
+        name: "Video"
+        level: 2
+        seeds: ["video walkthrough", "video recording"]
+
+# ============================================================================
+# FACET 7: CROSS-MODAL INTERACTIONS
+# ============================================================================
+
+cross_modal:
+  - id: xmod.vision_audition
+    name: "Vision × Audition"
+    level: 1
+    seeds: ["audiovisual interaction", "visual-acoustic"]
+    children:
+      - id: xmod.vision_audition.loudness
+        name: "Visual Influence on Loudness"
+        level: 2
+        seeds: ["visual effect on perceived loudness"]
+      - id: xmod.vision_audition.quality
+        name: "Visual Influence on Acoustic Quality"
+        level: 2
+        seeds: ["room appearance effect on acoustic perception"]
+      - id: xmod.vision_audition.capture
+        name: "Visual Capture"
+        level: 2
+        seeds: ["visual dominance", "ventriloquism effect"]
+
+  - id: xmod.vision_thermal
+    name: "Vision × Thermal"
+    level: 1
+    seeds: ["visual-thermal interaction", "hue-heat hypothesis"]
+    children:
+      - id: xmod.vision_thermal.color_temp
+        name: "Color on Thermal Perception"
+        level: 2
+        seeds: ["warm colors feel warmer", "hue-heat effect"]
+      - id: xmod.vision_thermal.daylight_thermal
+        name: "Daylight on Thermal Comfort"
+        level: 2
+        seeds: ["daylight effect on thermal comfort"]
+      - id: xmod.vision_thermal.view_thermal
+        name: "View on Thermal Tolerance"
+        level: 2
+        seeds: ["nature view increases thermal tolerance"]
+
+  - id: xmod.vision_haptic
+    name: "Vision × Haptic"
+    level: 1
+    seeds: ["visual-tactile interaction"]
+    children:
+      - id: xmod.vision_haptic.texture_expect
+        name: "Visual Texture on Tactile Expectation"
+        level: 2
+        seeds: ["visual texture sets tactile expectation"]
+      - id: xmod.vision_haptic.material_pref
+        name: "Material Appearance on Touch"
+        level: 2
+        seeds: ["material looks affect touch preference"]
+
+  - id: xmod.audition_thermal
+    name: "Audition × Thermal"
+    level: 1
+    seeds: ["acoustic-thermal interaction"]
+    children:
+      - id: xmod.audition_thermal.hvac
+        name: "HVAC Noise on Thermal Comfort"
+        level: 2
+        seeds: ["mechanical noise affects thermal satisfaction"]
+      - id: xmod.audition_thermal.water
+        name: "Water Sounds on Cooling"
+        level: 2
+        seeds: ["water sounds feel cooler"]
+
+  - id: xmod.multimodal
+    name: "Higher-Order Multimodal"
+    level: 1
+    seeds: ["multimodal integration", "sensory congruence"]
+    children:
+      - id: xmod.multimodal.congruence
+        name: "Cross-Modal Congruence"
+        level: 2
+        seeds: ["sensory consistency", "multimodal match"]
+      - id: xmod.multimodal.conflict
+        name: "Cross-Modal Conflict"
+        level: 2
+        seeds: ["sensory mismatch", "incongruent cues"]
+
+# ============================================================================
+# FACET 8: THEORY
+# ============================================================================
+
+theory:
+  - id: theo.restoration
+    name: "Restoration Theories"
+    level: 1
+    children:
+      - id: theo.restoration.art
+        name: "Attention Restoration Theory"
+        level: 2
+        seeds: ["ART", "Kaplan attention restoration", "directed attention fatigue"]
+      - id: theo.restoration.srt
+        name: "Stress Recovery Theory"
+        level: 2
+        seeds: ["Ulrich stress recovery", "psycho-evolutionary", "affective response"]
+
+  - id: theo.perception
+    name: "Perception Theories"
+    level: 1
+    children:
+      - id: theo.perception.prospect_refuge
+        name: "Prospect-Refuge"
+        level: 2
+        seeds: ["Appleton prospect refuge", "overview and shelter"]
+      - id: theo.perception.affordance
+        name: "Affordance Theory"
+        level: 2
+        seeds: ["Gibson affordances", "action possibilities"]
+      - id: theo.perception.ecological
+        name: "Ecological Perception"
+        level: 2
+        seeds: ["ecological psychology", "direct perception"]
+      - id: theo.perception.embodied
+        name: "Embodied Cognition"
+        level: 2
+        seeds: ["embodied cognition", "body in space", "sensorimotor"]
+
+  - id: theo.preference
+    name: "Preference Theories"
+    level: 1
+    children:
+      - id: theo.preference.biophilia
+        name: "Biophilia"
+        level: 2
+        seeds: ["biophilia hypothesis", "Wilson biophilia", "innate nature preference"]
+      - id: theo.preference.savanna
+        name: "Savanna Hypothesis"
+        level: 2
+        seeds: ["savanna preference", "evolutionary landscape preference"]
+      - id: theo.preference.fractal
+        name: "Fractal Fluency"
+        level: 2
+        seeds: ["fractal fluency", "fractal preference", "natural fractal patterns"]
+      - id: theo.preference.processing
+        name: "Processing Fluency"
+        level: 2
+        seeds: ["perceptual fluency", "ease of processing", "fluency preference"]
+
+  - id: theo.environmental
+    name: "Environmental Theories"
+    level: 1
+    children:
+      - id: theo.environmental.place
+        name: "Place Attachment"
+        level: 2
+        seeds: ["place attachment theory", "place identity", "place bonding"]
+      - id: theo.environmental.fit
+        name: "Person-Environment Fit"
+        level: 2
+        seeds: ["P-E fit", "environmental congruence"]
+      - id: theo.environmental.behavior
+        name: "Behavior Setting"
+        level: 2
+        seeds: ["Barker behavior setting", "ecological psychology"]
+
+  - id: theo.design
+    name: "Design Theories"
+    level: 1
+    children:
+      - id: theo.design.pattern
+        name: "Pattern Language"
+        level: 2
+        seeds: ["Alexander pattern language", "design patterns"]
+      - id: theo.design.syntax
+        name: "Space Syntax"
+        level: 2
+        seeds: ["space syntax", "Hillier", "spatial configuration analysis"]
+
+# ============================================================================
+# FACET 9: EVIDENCE STRENGTH
+# ============================================================================
+
+evidence_strength:
+  - id: evid.experimental
+    name: "Experimental Evidence"
+    level: 1
+    children:
+      - id: evid.experimental.rct
+        name: "RCT"
+        level: 2
+        seeds: ["randomized controlled trial", "high-quality experiment"]
+      - id: evid.experimental.quasi
+        name: "Quasi-Experimental"
+        level: 2
+        seeds: ["quasi-experiment", "controlled study"]
+      - id: evid.experimental.natural
+        name: "Natural Experiment"
+        level: 2
+        seeds: ["natural experiment", "before-after"]
+
+  - id: evid.observational
+    name: "Observational Evidence"
+    level: 1
+    children:
+      - id: evid.observational.prospective
+        name: "Prospective"
+        level: 2
+        seeds: ["prospective study", "cohort study"]
+      - id: evid.observational.retrospective
+        name: "Retrospective"
+        level: 2
+        seeds: ["retrospective study", "historical data"]
+
+  - id: evid.synthesis
+    name: "Synthesized Evidence"
+    level: 1
+    children:
+      - id: evid.synthesis.meta
+        name: "Meta-Analysis"
+        level: 2
+        seeds: ["meta-analysis", "pooled effect"]
+      - id: evid.synthesis.systematic
+        name: "Systematic Review"
+        level: 2
+        seeds: ["systematic review"]
+
+  - id: evid.theoretical
+    name: "Theoretical"
+    level: 1
+    children:
+      - id: evid.theoretical.conceptual
+        name: "Conceptual Paper"
+        level: 2
+        seeds: ["theoretical paper", "conceptual framework"]
+      - id: evid.theoretical.guidelines
+        name: "Design Guidelines"
+        level: 2
+        seeds: ["design recommendations", "practice guidelines"]

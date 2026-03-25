@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/ae.review_item.v1.schema.json",
+  "schema_id": "ae.review_item.v1",
+  "title": "AE Review Item (v1)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "paper_id",
+    "run_id",
+    "item_id",
+    "severity",
+    "question",
+    "context"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ae.review_item.v1"
+    },
+    "paper_id": {
+      "type": "string"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "item_id": {
+      "type": "string"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "warning",
+        "blocking"
+      ]
+    },
+    "question": {
+      "type": "string"
+    },
+    "context": {
+      "type": "object"
+    }
+  }
+}

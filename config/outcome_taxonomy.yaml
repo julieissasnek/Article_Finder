@@ -1,0 +1,144 @@
+metadata:
+  source: Outcome_Contractor
+  version: 1.0.0
+  generated_at: '2026-01-02T03:55:32.682433Z'
+  facet: outcomes
+outcomes:
+  cog:
+    name: Cognitive
+    description: Mental processes and capacities
+    children:
+    - id: cog
+      name: Cognitive
+      description: Mental processes and capacities
+      children:
+      - id: cog.attention
+        name: Attention
+        description: Capacity to selectively focus
+        children:
+        - id: cog.attention.selective
+          name: Selective Attention
+          description: Focusing while filtering distractors
+        - id: cog.attention.sustained
+          name: Sustained Attention
+          description: Maintaining focus over time
+          keywords:
+          - continuous attention
+          - sustained focus
+          - vigilance
+      - id: cog.performance
+        name: Cognitive Performance
+        description: General cognitive task performance
+        keywords:
+        - cognitive function
+        - cognitive functioning
+        - mental performance
+      - id: cog.memory
+        name: Memory
+        description: Encoding, storage, retrieval
+        children:
+        - id: cog.memory.working
+          name: Working Memory
+          description: Short-term maintenance and manipulation
+          keywords:
+          - short-term memory
+          - working memory capacity
+  affect:
+    name: Affective
+    description: Emotional states and moods
+    children:
+    - id: affect
+      name: Affective
+      description: Emotional states and moods
+      children:
+      - id: affect.anxiety
+        name: Anxiety
+        description: Apprehension and worry
+      - id: affect.mood
+        name: Mood
+        description: Diffuse, longer-lasting affective state
+        children:
+        - id: affect.mood.negative
+          name: Negative Mood
+          description: Unpleasant affective state
+          keywords:
+          - bad mood
+          - negative affect
+          - negative emotions
+          - unpleasant mood
+        - id: affect.mood.positive
+          name: Positive Mood
+          description: Pleasant affective state
+          keywords:
+          - good mood
+          - pleasant mood
+          - positive affect
+          - positive emotions
+      - id: affect.stress
+        name: Stress
+        description: Psychological strain response
+        keywords:
+        - perceived stress
+        - psychological stress
+        - stress levels
+  behav:
+    name: Behavioral
+    description: Actions and activity patterns
+    children:
+    - id: behav
+      name: Behavioral
+      description: Actions and activity patterns
+      children:
+      - id: behav.productivity
+        name: Productivity
+        description: Work output and efficiency
+        keywords:
+        - task performance
+        - work output
+        - work performance
+      - id: behav.sleep
+        name: Sleep
+        description: Sleep quality and patterns
+  social:
+    name: Social
+    description: Interpersonal dynamics
+    children:
+    - id: social
+      name: Social
+      description: Interpersonal dynamics
+      children:
+      - id: social.collaboration
+        name: Collaboration
+        description: Working together effectively
+      - id: social.interaction
+        name: Social Interaction
+        description: Interpersonal communication
+  physio:
+    name: Physiological
+    description: Bodily states and processes
+    children:
+    - id: physio
+      name: Physiological
+      description: Bodily states and processes
+      children:
+      - id: physio.alertness
+        name: Alertness
+        description: Physiological arousal level
+      - id: physio.fatigue
+        name: Fatigue
+        description: Physical and mental tiredness
+  health:
+    name: Health
+    description: Wellbeing and health outcomes
+    children:
+    - id: health
+      name: Health
+      description: Wellbeing and health outcomes
+      children:
+      - id: health.wellbeing
+        name: Wellbeing
+        description: General sense of wellness
+        keywords:
+        - quality of life
+        - well-being
+        - wellness

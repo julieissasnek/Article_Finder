@@ -1,0 +1,191 @@
+{
+  "schema": "oc.ae_lookup.v1",
+  "version": "1.0.0",
+  "generated_at": "2026-01-02T03:55:32.694592Z",
+  "lookup": {
+    "affective": "affect",
+    "anxiety": "affect.anxiety",
+    "mood": "affect.mood",
+    "negative mood": "affect.mood.negative",
+    "bad mood": "affect.mood.negative",
+    "negative affect": "affect.mood.negative",
+    "negative emotions": "affect.mood.negative",
+    "unpleasant mood": "affect.mood.negative",
+    "positive mood": "affect.mood.positive",
+    "good mood": "affect.mood.positive",
+    "pleasant mood": "affect.mood.positive",
+    "positive affect": "affect.mood.positive",
+    "positive emotions": "affect.mood.positive",
+    "stress": "affect.stress",
+    "perceived stress": "affect.stress",
+    "psychological stress": "affect.stress",
+    "stress levels": "affect.stress",
+    "behavioral": "behav",
+    "productivity": "behav.productivity",
+    "task performance": "behav.productivity",
+    "work output": "behav.productivity",
+    "work performance": "behav.productivity",
+    "sleep": "behav.sleep",
+    "cognitive": "cog",
+    "attention": "cog.attention",
+    "selective attention": "cog.attention.selective",
+    "sustained attention": "cog.attention.sustained",
+    "continuous attention": "cog.attention.sustained",
+    "sustained focus": "cog.attention.sustained",
+    "vigilance": "cog.attention.sustained",
+    "memory": "cog.memory",
+    "working memory": "cog.memory.working",
+    "short-term memory": "cog.memory.working",
+    "working memory capacity": "cog.memory.working",
+    "cognitive performance": "cog.performance",
+    "cognitive function": "cog.performance",
+    "cognitive functioning": "cog.performance",
+    "mental performance": "cog.performance",
+    "health": "health",
+    "wellbeing": "health.wellbeing",
+    "quality of life": "health.wellbeing",
+    "well-being": "health.wellbeing",
+    "wellness": "health.wellbeing",
+    "physiological": "physio",
+    "alertness": "physio.alertness",
+    "fatigue": "physio.fatigue",
+    "social": "social",
+    "collaboration": "social.collaboration",
+    "social interaction": "social.interaction"
+  },
+  "terms": {
+    "affect": {
+      "name": "Affective",
+      "domain": "affect",
+      "parent": null
+    },
+    "affect.anxiety": {
+      "name": "Anxiety",
+      "domain": "affect",
+      "parent": "affect"
+    },
+    "affect.mood": {
+      "name": "Mood",
+      "domain": "affect",
+      "parent": "affect"
+    },
+    "affect.mood.negative": {
+      "name": "Negative Mood",
+      "domain": "affect",
+      "parent": "affect.mood"
+    },
+    "affect.mood.positive": {
+      "name": "Positive Mood",
+      "domain": "affect",
+      "parent": "affect.mood"
+    },
+    "affect.stress": {
+      "name": "Stress",
+      "domain": "affect",
+      "parent": "affect"
+    },
+    "behav": {
+      "name": "Behavioral",
+      "domain": "behav",
+      "parent": null
+    },
+    "behav.productivity": {
+      "name": "Productivity",
+      "domain": "behav",
+      "parent": "behav"
+    },
+    "behav.sleep": {
+      "name": "Sleep",
+      "domain": "behav",
+      "parent": "behav"
+    },
+    "cog": {
+      "name": "Cognitive",
+      "domain": "cog",
+      "parent": null
+    },
+    "cog.attention": {
+      "name": "Attention",
+      "domain": "cog",
+      "parent": "cog"
+    },
+    "cog.attention.selective": {
+      "name": "Selective Attention",
+      "domain": "cog",
+      "parent": "cog.attention"
+    },
+    "cog.attention.sustained": {
+      "name": "Sustained Attention",
+      "domain": "cog",
+      "parent": "cog.attention"
+    },
+    "cog.memory": {
+      "name": "Memory",
+      "domain": "cog",
+      "parent": "cog"
+    },
+    "cog.memory.working": {
+      "name": "Working Memory",
+      "domain": "cog",
+      "parent": "cog.memory"
+    },
+    "cog.performance": {
+      "name": "Cognitive Performance",
+      "domain": "cog",
+      "parent": "cog"
+    },
+    "health": {
+      "name": "Health",
+      "domain": "health",
+      "parent": null
+    },
+    "health.wellbeing": {
+      "name": "Wellbeing",
+      "domain": "health",
+      "parent": "health"
+    },
+    "physio": {
+      "name": "Physiological",
+      "domain": "physio",
+      "parent": null
+    },
+    "physio.alertness": {
+      "name": "Alertness",
+      "domain": "physio",
+      "parent": "physio"
+    },
+    "physio.fatigue": {
+      "name": "Fatigue",
+      "domain": "physio",
+      "parent": "physio"
+    },
+    "social": {
+      "name": "Social",
+      "domain": "social",
+      "parent": null
+    },
+    "social.collaboration": {
+      "name": "Collaboration",
+      "domain": "social",
+      "parent": "social"
+    },
+    "social.interaction": {
+      "name": "Social Interaction",
+      "domain": "social",
+      "parent": "social"
+    }
+  },
+  "domains": [
+    "cog",
+    "affect",
+    "behav",
+    "social",
+    "physio",
+    "neural",
+    "health"
+  ],
+  "stats": {
+    "terms_count": 24,
+    "lookup_entries": 49
+  }
+}

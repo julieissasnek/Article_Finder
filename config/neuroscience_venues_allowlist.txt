@@ -1,0 +1,25 @@
+# Neuroscience venues: use as a lower-reject-threshold guardrail.
+# One venue per line.
+Brain
+Brain Research
+Cerebral Cortex
+Cognitive Neuroscience
+Current Biology
+Experimental Brain Research
+Frontiers in Behavioral Neuroscience
+Frontiers in Human Neuroscience
+Frontiers in Neuroscience
+Journal of Cognitive Neuroscience
+Journal of Neuroscience
+Learning & Memory
+Nature Neuroscience
+NeuroImage
+NeuroImage: Clinical
+Neuropsychologia
+Neuron
+Neurosci. Lett.
+Neuroscience
+Neuroscience Letters
+Neuroscience & Biobehavioral Reviews
+Psychophysiology
+Trends in Cognitive Sciences
