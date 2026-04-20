@@ -45,6 +45,7 @@ class ClassificationResult:
     domain_score: float  # Overall neuroarchitecture relevance
     triage_decision: str  # send_to_eater | review | reject
     triage_reasons: List[str]
+    question_relevance: Dict[str, Any] = field(default_factory=dict)
 
 
 class HierarchicalClassifier:
@@ -466,7 +467,7 @@ class TriageFilter:
     High-level triage filter that uses the classifier to filter papers.
     """
     
-    def __init__(self, classifier: HierarchicalClassifier, database=None):
+    def __init__(self, classifier: HierarchicalClassifier, database=None, question_relevance_gate=None):
         """
         Initialize triage filter.
         
@@ -476,12 +477,14 @@ class TriageFilter:
         """
         self.classifier = classifier
         self.db = database
+        self.question_relevance_gate = question_relevance_gate
     
     def triage_paper(
         self,
         paper_id: str,
         title: str,
         abstract: Optional[str] = None,
+        extra_fields: Optional[Dict[str, Any]] = None,
         store_results: bool = True
     ) -> ClassificationResult:
         """
@@ -497,6 +500,33 @@ class TriageFilter:
             ClassificationResult
         """
         result = self.classifier.classify_paper(paper_id, title, abstract)
+
+        if self.question_relevance_gate is not None:
+            gate_payload = {
+                "paper_id": paper_id,
+                "title": title,
+                "abstract": abstract or "",
+            }
+            if extra_fields:
+                gate_payload.update(extra_fields)
+                gate_payload["paper_id"] = paper_id
+                gate_payload["title"] = title
+                gate_payload["abstract"] = abstract or gate_payload.get("abstract") or ""
+            summary = self.question_relevance_gate.assess_paper(
+                gate_payload
+            )
+            result.question_relevance = summary
+            merged = self.question_relevance_gate.merge_decision(result.triage_decision, summary)
+            if merged != result.triage_decision:
+                result.triage_reasons = list(result.triage_reasons) + [
+                    f"Question relevance gate promoted decision to {merged}",
+                    *[f"Question gate: {reason}" for reason in summary.get("reasons", [])[:4]],
+                ]
+                result.triage_decision = merged
+            elif summary.get("enabled"):
+                result.triage_reasons = list(result.triage_reasons) + [
+                    f"Question gate best verdict: {summary.get('best_verdict')} ({summary.get('best_question_id')})"
+                ]
         
         if store_results and self.db:
             # Store facet scores
@@ -544,6 +574,7 @@ class TriageFilter:
                 paper_id=paper.get('paper_id', 'unknown'),
                 title=paper.get('title', ''),
                 abstract=paper.get('abstract'),
+                extra_fields=paper,
                 store_results=store_results
             )
             

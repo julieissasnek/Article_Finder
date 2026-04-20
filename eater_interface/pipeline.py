@@ -15,6 +15,8 @@ import logging
 
 from core.database import Database, get_database
 from triage.classifier import HierarchicalClassifier, TriageFilter
+from triage.question_relevance import QuestionAwareTriageGate, build_question_adjudicator
+from triage.registry_sink import AEUnifiedRegistrySink
 from eater_interface.job_bundle import JobBundleBuilder, BatchBundleBuilder
 from eater_interface.invoker import EaterInvoker, BatchInvoker, EaterJobQueue, EaterProfile, HITLMode
 from eater_interface.output_parser import OutputImporter
@@ -45,6 +47,17 @@ class PipelineConfig:
     domain_threshold_accept: float = 0.5
     domain_threshold_reject: float = 0.3
     auto_queue_threshold: float = 0.7
+    question_filter_enabled: bool = False
+    question_constitutions_path: Optional[Path] = None
+    question_constitution_ids: List[str] = None
+    question_adjudication_policy: str = "borderline_only"
+    question_adjudicator_kind: str = "none"
+    question_adjudicator_command: List[str] = None
+    question_adjudicator_timeout: int = 180
+    question_registry_notify: bool = True
+    question_registry_db_path: Optional[Path] = None
+    question_lifecycle_db_path: Optional[Path] = None
+    question_registry_dry_run: bool = False
     
     # Processing settings
     batch_size: int = 10
@@ -57,9 +70,10 @@ class PipelineConfig:
             data = yaml.safe_load(f)
         
         # Convert string paths to Path objects
-        for key in ['data_dir', 'taxonomy_path', 'job_bundles_dir', 
-                    'eater_outputs_dir', 'pdf_storage_dir']:
-            if key in data:
+        for key in ['data_dir', 'taxonomy_path', 'job_bundles_dir',
+                    'eater_outputs_dir', 'pdf_storage_dir', 'question_constitutions_path',
+                    'question_registry_db_path', 'question_lifecycle_db_path']:
+            if key in data and data[key] is not None:
                 data[key] = Path(data[key])
         
         return cls(**data)
@@ -107,10 +121,32 @@ class ArticleFinderPipeline:
         
         # Initialize database
         self.db = get_database(config.data_dir / "article_finder.db")
-        
+
         # Initialize classifier (taxonomy loaded separately)
         self.classifier = HierarchicalClassifier()
-        self.triage_filter = TriageFilter(self.classifier, self.db)
+        question_gate = None
+        if config.question_filter_enabled and config.question_constitutions_path and config.question_constitutions_path.exists():
+            registry_sink = None
+            if config.question_registry_notify:
+                registry_sink = AEUnifiedRegistrySink(
+                    registry_db=config.question_registry_db_path,
+                    lifecycle_db=config.question_lifecycle_db_path,
+                    dry_run=config.question_registry_dry_run,
+                )
+            adjudicator = build_question_adjudicator(
+                config.question_adjudicator_kind,
+                command=config.question_adjudicator_command or (),
+                cwd=Path(__file__).resolve().parents[1],
+                timeout_seconds=config.question_adjudicator_timeout,
+            )
+            question_gate = QuestionAwareTriageGate.from_json(
+                config.question_constitutions_path,
+                active_question_ids=config.question_constitution_ids or (),
+                adjudicator=adjudicator,
+                registry_sink=registry_sink,
+                adjudication_policy=config.question_adjudication_policy,
+            )
+        self.triage_filter = TriageFilter(self.classifier, self.db, question_relevance_gate=question_gate)
         
         # Initialize Article Eater components
         self.bundle_builder = JobBundleBuilder(config.job_bundles_dir)
