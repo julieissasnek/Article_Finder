@@ -30,6 +30,7 @@ See `docs/ZOTERO_UCSD_SETUP.md` for full setup guide.
 
 - **Bounded Expansion**: Taxonomy-filtered citation following - stays in domain
 - **Deduplication**: Robust duplicate detection (DOI, fuzzy title, author overlap)
+- **AE Waiting-Room Gate**: PDF intake now asks Article Eater whether the same PDF or article already exists in AE's collection pipeline before AF stores or bundles it
 - **Discovery Orchestrator**: Full pipeline automation (import → classify → expand → acquire → bundle)
 - **Progress Dashboard**: Streamlit UI for monitoring discovery runs
 
@@ -109,6 +110,7 @@ article_finder_v3.2/
 │   ├── smart_importer.py    # Fuzzy column detection, handles messy data
 │   ├── citation_parser.py   # Parses MDPI/APA/MLA/Chicago citations
 │   ├── pdf_cataloger.py     # Creates records from PDF filenames
+│   ├── ae_waiting_room_probe.py  # Calls AE's duplicate gate before AF intake
 │   ├── pdf_downloader.py    # Unpaywall-based PDF acquisition
 │   ├── doi_resolver.py      # CrossRef + OpenAlex integration
 │   └── zotero_bridge.py     # NEW: Two-way Zotero integration

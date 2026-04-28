@@ -9,6 +9,7 @@ import tempfile
 import json
 from pathlib import Path
 from datetime import datetime
+from unittest.mock import patch
 
 # Test data - various citation formats
 TEST_CITATIONS = [
@@ -191,9 +192,49 @@ class TestPDFCataloger(unittest.TestCase):
     def test_doi_filename(self):
         """Test DOI-based filename parsing."""
         result = self.parser.parse(TEST_PDF_FILENAMES[2]['filename'])
-        
+
         self.assertIsNotNone(result.doi)
         self.assertIn('10.1016', result.doi)
+
+    def test_cataloger_skips_article_eater_duplicate_before_db_insert(self):
+        """AF should stop when AE says the PDF already exists."""
+        from ingest.pdf_cataloger import PDFCataloger
+
+        class DummyDB:
+            def __init__(self):
+                self.add_calls = 0
+
+            def get_paper_by_doi(self, doi):
+                return None
+
+            def add_paper(self, paper):
+                self.add_calls += 1
+                raise AssertionError("AF DB insert should not happen for AE duplicate")
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            pdf_path = Path(tmpdir) / "10.3389_fnhum.2017.00477.pdf"
+            pdf_path.write_bytes(b"%PDF-1.4 test duplicate")
+            db = DummyDB()
+            cataloger = PDFCataloger(database=db, ae_probe_enabled=True, extract_doi_from_text=False)
+
+            with patch(
+                "ingest.pdf_cataloger.probe_pdf_against_article_eater",
+                return_value={
+                    "probe_scope": "collection_pipeline",
+                    "is_known_duplicate": True,
+                    "strongest_match_type": "doi_exact",
+                    "strongest_match_paper_id": "PDF-0710",
+                    "matches": [{"paper_id": "PDF-0710", "match_type": "doi_exact"}],
+                },
+            ):
+                paper = cataloger.catalog_file(pdf_path, source_name="pdf_inbox", resolve_dois=False, search_crossref=False)
+
+            self.assertIsNotNone(paper)
+            self.assertEqual(paper["status"], "duplicate_existing")
+            self.assertEqual(paper["duplicate_of"], "PDF-0710")
+            self.assertEqual(paper["duplicate_match_type"], "doi_exact")
+            self.assertEqual(db.add_calls, 0)
+            self.assertEqual(cataloger.stats["ae_duplicates"], 1)
 
 
 class TestColumnDetector(unittest.TestCase):

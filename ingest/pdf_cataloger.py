@@ -18,12 +18,15 @@ import logging
 import hashlib
 import subprocess
 import shutil
+import sys
 from pathlib import Path
 from typing import Optional, Dict, List, Any, Generator, Tuple
 from dataclasses import dataclass, field
 from datetime import datetime
 
 logger = logging.getLogger(__name__)
+
+from ingest.ae_waiting_room_probe import probe_pdf_against_article_eater
 
 
 def extract_pdf_text(pdf_path: Path, max_pages: int = 2, max_chars: int = 5000) -> Optional[str]:
@@ -363,7 +366,10 @@ class PDFCataloger:
         doi_resolver=None,
         pdf_storage_dir: Optional[Path] = None,
         copy_to_storage: bool = False,
-        extract_doi_from_text: bool = True
+        extract_doi_from_text: bool = True,
+        ae_probe_enabled: bool = True,
+        ae_repo_root: Optional[Path] = None,
+        ae_python_executable: Optional[str] = None,
     ):
         """
         Args:
@@ -379,6 +385,9 @@ class PDFCataloger:
         self.pdf_storage_dir = Path(pdf_storage_dir) if pdf_storage_dir else None
         self.copy_to_storage = copy_to_storage
         self.extract_doi_from_text = extract_doi_from_text
+        self.ae_probe_enabled = ae_probe_enabled
+        self.ae_repo_root = Path(ae_repo_root) if ae_repo_root else None
+        self.ae_python_executable = ae_python_executable or sys.executable
 
         if self.copy_to_storage and not self.pdf_storage_dir:
             self.pdf_storage_dir = Path("data/pdfs")
@@ -392,6 +401,7 @@ class PDFCataloger:
             'matched_crossref': 0,
             'created': 0,
             'updated': 0,
+            'ae_duplicates': 0,
             'copied': 0,
             'already_present': 0,
             'processed': 0,
@@ -503,6 +513,33 @@ class PDFCataloger:
                 if paper_data:
                     self.stats['matched_crossref'] += 1
                     logger.debug(f"Found CrossRef match for {pdf_path.name}")
+
+        if self.ae_probe_enabled:
+            candidate_doi = (paper_data or {}).get('doi') or metadata.doi
+            candidate_title = (paper_data or {}).get('title') or metadata.title
+            candidate_authors = (paper_data or {}).get('authors') or metadata.authors
+            ae_probe = probe_pdf_against_article_eater(
+                pdf_path=pdf_path,
+                doi=candidate_doi,
+                title=candidate_title,
+                authors=candidate_authors,
+                ae_repo_root=self.ae_repo_root,
+                python_executable=self.ae_python_executable,
+            )
+            if ae_probe and ae_probe.get('is_known_duplicate'):
+                self.stats['ae_duplicates'] += 1
+                return {
+                    'paper_id': ae_probe.get('strongest_match_paper_id') or f"ae_duplicate:{pdf_path.stem}",
+                    'title': candidate_title,
+                    'doi': candidate_doi,
+                    'authors': candidate_authors,
+                    'status': 'duplicate_existing',
+                    'source': source_name,
+                    'pdf_path': str(pdf_path),
+                    'duplicate_of': ae_probe.get('strongest_match_paper_id'),
+                    'duplicate_match_type': ae_probe.get('strongest_match_type'),
+                    'ae_duplicate_probe': ae_probe,
+                }
 
         if self.copy_to_storage:
             stored_path = self._copy_to_storage(pdf_path, metadata)
