@@ -35,6 +35,8 @@ def gather_metrics(db_path: Path = DB_PATH) -> dict[str, Any]:
         "missing_migration_versions": missing_versions,
         "papers_has_pdf_source": "pdf_source" in columns,
         "papers_has_topic_category": "topic_category" in columns,
+        "papers_has_ae_corpus_match_status": "ae_corpus_match_status" in columns,
+        "papers_has_ae_corpus_deduped_at": "ae_corpus_deduped_at" in columns,
     }
     con.close()
     return metrics
@@ -51,6 +53,10 @@ def main() -> int:
         failures.append("papers_has_pdf_source")
     if not metrics["papers_has_topic_category"]:
         failures.append("papers_has_topic_category")
+    if not metrics["papers_has_ae_corpus_match_status"]:
+        failures.append("papers_has_ae_corpus_match_status")
+    if not metrics["papers_has_ae_corpus_deduped_at"]:
+        failures.append("papers_has_ae_corpus_deduped_at")
     payload = {
         "status": "ok" if not failures else "fail",
         "failures": failures,

@@ -48,6 +48,7 @@ def deep_check_specs() -> list[tuple[str, list[str]]]:
         ("verify_af_quarantine", [sys.executable, str(ROOT / "scripts" / "verify_af_quarantine.py")]),
         ("verify_af_semantic_integrity", [sys.executable, str(ROOT / "scripts" / "verify_af_semantic_integrity.py")]),
         ("verify_af_shared_intake_classification", [sys.executable, str(ROOT / "scripts" / "verify_af_shared_intake_classification.py")]),
+        ("verify_af_ae_corpus_dedupe", [sys.executable, str(ROOT / "scripts" / "verify_af_ae_corpus_dedupe.py")]),
     ]
 
 

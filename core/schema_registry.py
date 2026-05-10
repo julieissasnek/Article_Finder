@@ -62,6 +62,18 @@ def _migration_add_topic_category(conn: sqlite3.Connection) -> None:
     _add_column_if_missing(conn, "papers", "topic_category", "topic_category TEXT")
 
 
+def _migration_add_ae_corpus_dedupe_fields(conn: sqlite3.Connection) -> None:
+    for column_name, ddl_fragment in (
+        ("ae_corpus_match_status", "ae_corpus_match_status TEXT"),
+        ("ae_corpus_match_basis", "ae_corpus_match_basis TEXT"),
+        ("ae_corpus_match_paper_id", "ae_corpus_match_paper_id TEXT"),
+        ("ae_corpus_match_confidence", "ae_corpus_match_confidence REAL"),
+        ("ae_corpus_match_candidates_json", "ae_corpus_match_candidates_json TEXT"),
+        ("ae_corpus_deduped_at", "ae_corpus_deduped_at TEXT"),
+    ):
+        _add_column_if_missing(conn, "papers", column_name, ddl_fragment)
+
+
 SCHEMA_MIGRATIONS: tuple[SchemaMigration, ...] = (
     SchemaMigration(
         version=3,
@@ -77,6 +89,11 @@ SCHEMA_MIGRATIONS: tuple[SchemaMigration, ...] = (
         version=5,
         description="Formalize papers.topic_category in migration registry",
         apply=_migration_add_topic_category,
+    ),
+    SchemaMigration(
+        version=6,
+        description="Add AE corpus dedupe persistence fields to papers",
+        apply=_migration_add_ae_corpus_dedupe_fields,
     ),
 )
 

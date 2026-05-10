@@ -1,0 +1,17 @@
+{
+  "surface": "af_ae_corpus_dedupe",
+  "required_command_checks": [
+    "verify_af_ae_corpus_dedupe"
+  ],
+  "hard_zero_metrics": [
+    "missing_dedupe_rows",
+    "bad_status_rows",
+    "bad_basis_rows",
+    "matched_missing_paper_id_rows",
+    "matched_bad_confidence_rows",
+    "unmatched_with_paper_id_rows",
+    "ambiguous_missing_candidates_rows",
+    "bad_candidates_json_rows",
+    "missing_deduped_at_rows"
+  ]
+}

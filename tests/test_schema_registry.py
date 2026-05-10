@@ -16,10 +16,12 @@ def test_database_init_applies_registered_schema_migrations(tmp_path: Path) -> N
     columns = {row[1] for row in con.execute("PRAGMA table_info(papers)")}
     con.close()
 
-    assert versions == [1, 2, 3, 4, 5]
+    assert versions == [1, 2, 3, 4, 5, 6]
     assert "pdf_source" in columns
     assert "topic_category" in columns
     assert "atlas_classified_at" in columns
+    assert "ae_corpus_match_status" in columns
+    assert "ae_corpus_deduped_at" in columns
 
 
 def test_schema_governance_verifier_detects_legacy_schema(tmp_path: Path) -> None:
@@ -31,7 +33,9 @@ def test_schema_governance_verifier_detects_legacy_schema(tmp_path: Path) -> Non
     metrics = gather_metrics(db_path)
 
     assert metrics["schema_version_max"] == 2
-    assert metrics["expected_schema_version_max"] == 5
-    assert metrics["missing_migration_versions"] == [3, 4, 5]
+    assert metrics["expected_schema_version_max"] == 6
+    assert metrics["missing_migration_versions"] == [3, 4, 5, 6]
     assert metrics["papers_has_pdf_source"] is False
     assert metrics["papers_has_topic_category"] is False
+    assert metrics["papers_has_ae_corpus_match_status"] is False
+    assert metrics["papers_has_ae_corpus_deduped_at"] is False

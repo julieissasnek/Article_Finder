@@ -23,6 +23,7 @@ archive check.
 - schema governance verifier
 - semantic integrity verifier
 - shared intake-classification verifier
+- AE corpus dedupe verifier
 - AF integrity verifier
 - quarantine verifier
 
