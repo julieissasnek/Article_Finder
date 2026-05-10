@@ -20,6 +20,7 @@ archive check.
 
 - deep doctor
 - validate codebase
+- semantic integrity verifier
 - AF integrity verifier
 - quarantine verifier
 

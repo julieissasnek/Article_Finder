@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import sqlite3
 from pathlib import Path
 from typing import Any
@@ -26,16 +27,23 @@ def gather_metrics(db_path: Path = DB_PATH) -> dict[str, Any]:
     con = sqlite3.connect(db_path)
     con.row_factory = sqlite3.Row
     missing_pdf_path_files = 0
+    pdf_sha256_mismatch_rows = 0
     missing_ae_job_paths = 0
     missing_ae_output_paths = 0
     referenced_pdf_paths: set[str] = set()
 
-    for row in con.execute("SELECT pdf_path, ae_job_path, ae_output_path FROM papers"):
+    for row in con.execute("SELECT pdf_path, pdf_sha256, ae_job_path, ae_output_path FROM papers"):
         pdf_path = _resolve_path(row["pdf_path"])
         if pdf_path is not None:
             referenced_pdf_paths.add(str(pdf_path.resolve(strict=False)))
             if not pdf_path.exists():
                 missing_pdf_path_files += 1
+            else:
+                expected_sha = (row["pdf_sha256"] or "").strip().lower()
+                if expected_sha:
+                    actual_sha = hashlib.sha256(pdf_path.read_bytes()).hexdigest()
+                    if actual_sha != expected_sha:
+                        pdf_sha256_mismatch_rows += 1
         ae_job_path = _resolve_path(row["ae_job_path"])
         if ae_job_path is not None and not ae_job_path.exists():
             missing_ae_job_paths += 1
@@ -73,6 +81,7 @@ def gather_metrics(db_path: Path = DB_PATH) -> dict[str, Any]:
             "SELECT COUNT(*) FROM papers WHERE abstract IS NOT NULL AND trim(abstract) != ''"
         ).fetchone()[0],
         "missing_pdf_path_files": missing_pdf_path_files,
+        "pdf_sha256_mismatch_rows": pdf_sha256_mismatch_rows,
         "duplicate_pdf_sha_rows": duplicate_pdf_sha_rows,
         "orphan_pdf_files": orphan_pdf_files,
         "missing_ae_job_paths": missing_ae_job_paths,
@@ -86,6 +95,7 @@ def main() -> int:
     metrics = gather_metrics()
     hard_zero = [
         "missing_pdf_path_files",
+        "pdf_sha256_mismatch_rows",
         "duplicate_pdf_sha_rows",
         "orphan_pdf_files",
         "missing_ae_job_paths",

@@ -6,12 +6,22 @@
     "duplicate_pdf_sha_rows",
     "orphan_pdf_files",
     "missing_ae_job_paths",
-    "missing_ae_output_paths"
+    "missing_ae_output_paths",
+    "invalid_status_rows",
+    "invalid_triage_rows",
+    "deprecated_triage_rows",
+    "pending_triage_invalid_status_rows",
+    "ae_pending_without_job_rows",
+    "ae_terminal_without_output_rows",
+    "ae_pending_with_output_rows",
+    "ae_result_status_mismatch_rows",
+    "ae_result_summary_mismatch_rows"
   ],
   "required_command_checks": [
-    "doctor",
+    "doctor_deep",
     "validate_codebase",
     "verify_af_integrity",
-    "verify_af_quarantine"
+    "verify_af_quarantine",
+    "verify_af_semantic_integrity"
   ]
 }

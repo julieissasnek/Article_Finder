@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import sqlite3
 from pathlib import Path
 
@@ -30,13 +31,20 @@ def test_gather_metrics_detects_integrity_failures(tmp_path: Path) -> None:
     (tmp_path / "data" / "pdfs" / "orphan.pdf").write_text("x")
     good_pdf = tmp_path / "data" / "good.pdf"
     good_pdf.write_text("x")
+    good_sha = hashlib.sha256(good_pdf.read_bytes()).hexdigest()
     con.execute(
         "INSERT INTO papers VALUES (?,?,?,?,?,?)",
-        ("p1", "data/good.pdf", "sha1", "missing/job", "missing/out", "abs"),
+        ("p1", "data/good.pdf", good_sha, "missing/job", "missing/out", "abs"),
     )
     con.execute(
         "INSERT INTO papers VALUES (?,?,?,?,?,?)",
         ("p2", "data/missing.pdf", "sha1", None, None, None),
+    )
+    bad_pdf = tmp_path / "data" / "bad.pdf"
+    bad_pdf.write_text("y")
+    con.execute(
+        "INSERT INTO papers VALUES (?,?,?,?,?,?)",
+        ("p3", "data/bad.pdf", good_sha, None, None, None),
     )
     con.execute("INSERT INTO expansion_queue(status) VALUES ('pending')")
     con.commit()
@@ -51,6 +59,7 @@ def test_gather_metrics_detects_integrity_failures(tmp_path: Path) -> None:
         mod.REPO_ROOT = old_root
 
     assert metrics["missing_pdf_path_files"] == 1
+    assert metrics["pdf_sha256_mismatch_rows"] == 1
     assert metrics["duplicate_pdf_sha_rows"] == 1
     assert metrics["orphan_pdf_files"] == 1
     assert metrics["missing_ae_job_paths"] == 1

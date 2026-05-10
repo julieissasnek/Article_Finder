@@ -3,12 +3,16 @@
   "required_checks": [
     "doctor_deep",
     "validate_codebase",
-    "verify_af_quarantine"
+    "verify_af_integrity",
+    "verify_af_quarantine",
+    "verify_af_semantic_integrity"
   ],
   "required_latest_report": "data/health_reports/latest.json",
   "hard_failures": [
     "doctor_deep",
     "validate_codebase",
-    "verify_af_quarantine"
+    "verify_af_integrity",
+    "verify_af_quarantine",
+    "verify_af_semantic_integrity"
   ]
 }

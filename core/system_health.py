@@ -43,7 +43,9 @@ def deep_check_specs() -> list[tuple[str, list[str]]]:
     return [
         ("doctor_deep", [sys.executable, str(ROOT / "cli" / "main.py"), "doctor", "--deep"]),
         ("validate_codebase", [sys.executable, str(ROOT / "scripts" / "validate_codebase.py")]),
+        ("verify_af_integrity", [sys.executable, str(ROOT / "scripts" / "verify_af_integrity.py")]),
         ("verify_af_quarantine", [sys.executable, str(ROOT / "scripts" / "verify_af_quarantine.py")]),
+        ("verify_af_semantic_integrity", [sys.executable, str(ROOT / "scripts" / "verify_af_semantic_integrity.py")]),
     ]
 
 
