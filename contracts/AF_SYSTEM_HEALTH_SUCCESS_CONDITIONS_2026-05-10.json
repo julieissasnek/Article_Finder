@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "surface": "af_system_health",
+  "required_zero_counters": [
+    "missing_pdf_path_files",
+    "duplicate_pdf_sha_rows",
+    "orphan_pdf_files",
+    "missing_ae_job_paths",
+    "missing_ae_output_paths"
+  ],
+  "required_command_checks": [
+    "doctor",
+    "validate_codebase",
+    "verify_af_integrity"
+  ]
+}

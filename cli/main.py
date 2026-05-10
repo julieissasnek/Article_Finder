@@ -12,6 +12,7 @@ import json
 import logging
 import socket
 import shutil
+import subprocess
 from pathlib import Path
 from typing import Optional
 
@@ -1439,6 +1440,19 @@ def cmd_doctor(args):
     else:
         print(f"WARN: article_eater executable '{ae_exec}' not found on PATH")
 
+    if getattr(args, "deep", False):
+        print("\n== Deep Integrity ==")
+        verify_script = Path(__file__).parent.parent / "scripts" / "verify_af_integrity.py"
+        proc = subprocess.run(
+            [sys.executable, str(verify_script)],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+        )
+        print(proc.stdout)
+        if proc.returncode != 0:
+            return proc.returncode
+
     return 0
 
 
@@ -1704,6 +1718,7 @@ Examples:
     
     # Doctor command
     p_doctor = subparsers.add_parser('doctor', help='Check config, ports, and handoff paths')
+    p_doctor.add_argument('--deep', action='store_true', help='Also run AF integrity verification')
     p_doctor.set_defaults(func=cmd_doctor)
 
     # UI command
