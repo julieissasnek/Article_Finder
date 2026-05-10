@@ -23,6 +23,7 @@
     "verify_af_schema_governance",
     "verify_af_integrity",
     "verify_af_quarantine",
-    "verify_af_semantic_integrity"
+    "verify_af_semantic_integrity",
+    "verify_af_shared_intake_classification"
   ]
 }

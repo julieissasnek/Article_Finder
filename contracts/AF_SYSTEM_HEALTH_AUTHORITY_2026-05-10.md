@@ -17,6 +17,7 @@ older `doctor` command, which mainly checked configuration and paths.
 - `scripts/verify_af_integrity.py`
 - `scripts/verify_af_quarantine.py`
 - `scripts/verify_af_semantic_integrity.py`
+- `scripts/verify_af_shared_intake_classification.py`
 
 ## Required Deep Checks
 
@@ -29,6 +30,7 @@ older `doctor` command, which mainly checked configuration and paths.
 - PDF attachment integrity
 - AE handoff path integrity
 - AF semantic-state integrity
+- shared intake-classification persistence integrity
 - quarantine manifest integrity
 
 ## Required Outputs

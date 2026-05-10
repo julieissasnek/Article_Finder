@@ -1,0 +1,17 @@
+{
+  "surface": "af_shared_intake_classification",
+  "required_command_checks": [
+    "verify_af_shared_intake_classification"
+  ],
+  "hard_zero_metrics": [
+    "missing_core_rows",
+    "bad_topic_candidates_rows",
+    "bad_question_ids_rows",
+    "bad_adjacent_topics_rows",
+    "bad_payload_rows",
+    "bad_boolean_rows",
+    "bad_confidence_rows",
+    "on_domain_missing_primary_topic_rows",
+    "missing_last_mile_rows"
+  ]
+}

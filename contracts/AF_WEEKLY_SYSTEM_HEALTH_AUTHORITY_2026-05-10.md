@@ -22,6 +22,7 @@ archive check.
 - validate codebase
 - schema governance verifier
 - semantic integrity verifier
+- shared intake-classification verifier
 - AF integrity verifier
 - quarantine verifier
 

@@ -2,7 +2,15 @@
 
 ## Overview
 
-This guide sets up Zotero to automatically download PDFs using your UCSD library credentials. Combined with Article Finder's Zotero bridge, this enables semi-automated PDF acquisition for papers behind paywalls.
+This guide sets up Zotero Desktop and the Zotero Connector to download PDFs
+using your UCSD library access. Combined with Article Finder's Zotero bridge,
+this enables semi-automated PDF acquisition for papers behind paywalls.
+
+Important distinction:
+
+- The Zotero Web API is useful for item and attachment bookkeeping.
+- Institutional PDF retrieval is a Zotero Desktop + browser-authenticated
+  access problem, not something the Web API itself performs.
 
 ## The Workflow
 
@@ -27,7 +35,25 @@ This guide sets up Zotero to automatically download PDFs using your UCSD library
 
 ---
 
-## Step 1: Configure UCSD Library Proxy in Zotero
+## Step 1: Prefer UCSD SSO or VPN; use manual proxy only if needed
+
+As of May 10, 2026, UCSD's official guidance emphasizes library SSO and VPN
+access rather than a generic off-campus web proxy.
+
+Recommended order:
+
+1. Use UCSD-authenticated access from the article landing page in your browser
+2. If a publisher site still resists, use UCSD VPN
+3. Only then bother with a hand-maintained Zotero proxy rule
+
+### Fast path
+
+1. Open the publisher landing page in your browser
+2. Authenticate through UCSD when prompted
+3. Save with the Zotero Connector, or in Zotero Desktop run
+   **Find Available PDF**
+
+### Manual proxy configuration (optional)
 
 ### Mac
 
@@ -91,7 +117,7 @@ The Zotero Connector helps Zotero recognize when you're accessing resources thro
 
 5. **In Zotero**, try right-clicking on any paper → **Find Available PDF**
 
-If it works, Zotero will download the PDF through your authenticated session!
+If it works, Zotero will download the PDF through your authenticated session.
 
 ---
 
@@ -124,11 +150,11 @@ This creates `papers_needing_pdfs.ris` in the current directory.
 1. Select all the newly imported items (Cmd+A or Ctrl+A)
 2. **Right-click → Find Available PDF**
 3. Wait. Zotero will:
-   - Try Unpaywall first (free sources)
-   - Fall back to your UCSD library proxy for paywalled content
+   - Try open-access routes first
+   - Use your active UCSD-authenticated access for paywalled content
    - Show progress in the bottom-right
 
-**Tip**: Do this in batches of 50-100 to avoid overwhelming the proxy.
+**Tip**: Do this in batches of 50-100 to avoid overwhelming the session.
 
 ### Import PDFs Back to Article Finder
 
@@ -161,12 +187,13 @@ Test manually:
 3. You should be prompted for UCSD SSO
 4. After login, you should reach the full text
 
-If this doesn't work, contact UCSD Library IT.
+If this doesn't work, try UCSD VPN before assuming the generic proxy route is
+still the right one, and then retry.
 
 ### Zotero Can't Find PDFs I Know Exist
 
 Some publishers don't work well with Zotero's PDF finder. For these:
-1. Open the article in your browser (through library proxy)
+1. Open the article in your browser with UCSD-authenticated access
 2. Download the PDF manually
 3. Drag the PDF onto the Zotero item
 4. The PDF will be attached and sync to local storage
@@ -228,11 +255,12 @@ This approach should get you to 60-70% PDF coverage over a few weeks.
 ## UCSD-Specific Resources
 
 - **Library Homepage**: https://library.ucsd.edu
-- **Off-Campus Access Guide**: https://library.ucsd.edu/computing-and-technology/connect-from-off-campus
-- **VPN (alternative to proxy)**: https://blink.ucsd.edu/technology/network/connections/off-campus/VPN/
+- **Trusted Resources / UCSD access**: https://blink.ucsd.edu/technology/security/secure-connect/required-software/trusted-resources/index.html
+- **VPN**: https://blink.ucsd.edu/go/vpn
+- **Web Proxy note**: https://blink.ucsd.edu/technology/network/connections/off-campus/proxy/index.html
 - **Library IT Support**: lib-helpdesk@ucsd.edu
 
 ---
 
-*Last updated: January 2026*
+*Last updated: May 10, 2026*
 *Article Finder v3.2.3*

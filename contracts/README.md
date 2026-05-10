@@ -14,6 +14,8 @@ Primary current contracts:
 - `AF_AE_RESULT_INGESTION_AUTHORITY_2026-05-10.md`
 - `AF_TRIAGE_AND_SCORING_AUTHORITY_2026-05-10.md`
 - `AF_SCHEMA_AND_MIGRATION_AUTHORITY_2026-05-10.md`
+- `AF_SHARED_INTAKE_CLASSIFICATION_AUTHORITY_2026-05-10.md`
+- `AF_SHARED_INTAKE_CLASSIFICATION_SUCCESS_CONDITIONS_2026-05-10.json`
 - `AF_SYSTEM_HEALTH_AUTHORITY_2026-05-10.md`
 - `AF_SYSTEM_HEALTH_SUCCESS_CONDITIONS_2026-05-10.json`
 - `AF_QUARANTINE_AND_RECOVERY_AUTHORITY_2026-05-10.md`
@@ -27,6 +29,8 @@ Operational executables:
 - `scripts/verify_af_schema_governance.py`
 - `scripts/verify_af_integrity.py`
 - `scripts/verify_af_semantic_integrity.py`
+- `scripts/run_atlas_shared_backlog_classifier.py`
+- `scripts/verify_af_shared_intake_classification.py`
 - `scripts/repair_af_semantic_state.py`
 - `scripts/repair_af_integrity.py`
 - `scripts/run_system_health.py`
