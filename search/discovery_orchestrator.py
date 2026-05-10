@@ -469,12 +469,9 @@ class DiscoveryOrchestrator:
         stats = self._start_phase(DiscoveryPhase.BUILDING_JOBS)
         
         try:
-            from eater_interface.job_bundle_v2 import JobBundleBuilder
-            
-            builder = JobBundleBuilder(
-                database=self.db,
-                output_dir=self.job_dir
-            )
+            from eater_interface.handoff_contract import BatchBundleBuilder
+
+            builder = BatchBundleBuilder(self.job_dir)
             
             # Get papers ready for AE
             papers = self.db.get_papers_by_status('send_to_eater', limit=100)
@@ -484,7 +481,7 @@ class DiscoveryOrchestrator:
             
             for paper in papers_with_pdf:
                 try:
-                    bundle_path = builder.create_bundle(paper)
+                    bundle_path = builder.add_paper(paper, Path(paper['pdf_path']))
                     if bundle_path:
                         stats.items_succeeded += 1
                         self.current_run.total_jobs_created += 1

@@ -16,7 +16,7 @@ import threading
 import queue
 import time
 
-from .output_parser import OutputParser, OutputImporter, map_eater_status_to_finder
+from .handoff_contract import OutputImporter, OutputParser, map_eater_status_to_finder
 
 
 class EaterProfile(Enum):

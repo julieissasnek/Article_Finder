@@ -1261,7 +1261,7 @@ def cmd_zotero(args):
 
 def cmd_build_jobs(args):
     """Create Article Eater job bundles."""
-    from eater_interface.job_bundle_v2 import JobBundleBuilder
+    from eater_interface.handoff_contract import JobBundleBuilder
     
     db = get_db()
     

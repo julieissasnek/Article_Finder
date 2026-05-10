@@ -3,6 +3,7 @@
   "required_checks": [
     "doctor_deep",
     "validate_codebase",
+    "verify_af_schema_governance",
     "verify_af_integrity",
     "verify_af_quarantine",
     "verify_af_semantic_integrity"
@@ -11,6 +12,7 @@
   "hard_failures": [
     "doctor_deep",
     "validate_codebase",
+    "verify_af_schema_governance",
     "verify_af_integrity",
     "verify_af_quarantine",
     "verify_af_semantic_integrity"

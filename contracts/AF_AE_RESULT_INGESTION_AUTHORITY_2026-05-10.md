@@ -41,7 +41,7 @@ In `papers`:
 
 ## Canonical Executables
 
-- `eater_interface/output_parser.py`
+- `eater_interface/handoff_contract.py`
 - `scripts/verify_af_semantic_integrity.py`
 - `scripts/repair_af_semantic_state.py`
 

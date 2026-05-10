@@ -13,6 +13,7 @@ older `doctor` command, which mainly checked configuration and paths.
 - `cli/main.py doctor`
 - `cli/main.py doctor --deep`
 - `scripts/validate_codebase.py`
+- `scripts/verify_af_schema_governance.py`
 - `scripts/verify_af_integrity.py`
 - `scripts/verify_af_quarantine.py`
 - `scripts/verify_af_semantic_integrity.py`
@@ -24,6 +25,7 @@ older `doctor` command, which mainly checked configuration and paths.
 - database initialization
 - PDF cataloger sanity
 - claim verifier sanity
+- schema migration governance
 - PDF attachment integrity
 - AE handoff path integrity
 - AF semantic-state integrity

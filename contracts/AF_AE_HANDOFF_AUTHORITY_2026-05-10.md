@@ -39,6 +39,7 @@ In `papers`:
 
 ## Canonical Executables
 
+- `eater_interface/handoff_contract.py`
 - `scripts/verify_af_integrity.py`
 - `scripts/repair_af_integrity.py`
 - `cli/main.py doctor --deep`

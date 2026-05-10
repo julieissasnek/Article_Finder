@@ -27,7 +27,7 @@ from typing import Dict, Any, List, Optional
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.database import Database
-from eater_interface.job_bundle_v2 import JobBundleBuilder, BatchBundleBuilder
+from eater_interface.handoff_contract import BatchBundleBuilder, JobBundleBuilder
 
 
 # Default output directory for AE job bundles

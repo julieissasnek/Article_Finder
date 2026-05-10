@@ -22,6 +22,9 @@ Primary current contracts:
 
 Operational executables:
 
+- `eater_interface/handoff_contract.py`
+- `scripts/repair_af_schema_governance.py`
+- `scripts/verify_af_schema_governance.py`
 - `scripts/verify_af_integrity.py`
 - `scripts/verify_af_semantic_integrity.py`
 - `scripts/repair_af_semantic_state.py`

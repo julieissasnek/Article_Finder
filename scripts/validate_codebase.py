@@ -34,7 +34,7 @@ def check_imports() -> List[str]:
         'ingest.zotero_connector',
         'ingest.prepare_for_ae',
         'search.bibliographer',
-        'eater_interface.job_bundle_v2',
+        'eater_interface.handoff_contract',
         'eater_interface.invoker',
     ]
 

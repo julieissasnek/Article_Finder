@@ -11,6 +11,8 @@ from datetime import datetime
 from typing import Optional, List, Dict, Any
 from contextlib import contextmanager
 
+from core.schema_registry import apply_pending_schema_migrations
+
 # Default database path
 DEFAULT_DB_PATH = Path(__file__).parent.parent / "data" / "article_finder.db"
 
@@ -335,7 +337,8 @@ def get_schema_sql() -> str:
 
 # Status state machine
 STATUS_TRANSITIONS = {
-    'candidate': ['rejected', 'downloaded', 'queued_for_eater'],
+    'candidate': ['pending_scorer', 'rejected', 'downloaded', 'queued_for_eater'],
+    'pending_scorer': ['candidate', 'rejected', 'downloaded', 'queued_for_eater'],
     'rejected': [],  # Terminal
     'downloaded': ['queued_for_eater', 'rejected'],
     'queued_for_eater': ['sent_to_eater', 'rejected'],
@@ -366,26 +369,7 @@ class Database:
         """Initialize database with schema."""
         with self.connection() as conn:
             conn.executescript(get_schema_sql())
-            # Ensure new columns exist for schema migrations
-            self._ensure_columns(
-                conn,
-                "papers",
-                {
-                    "off_topic_flag": "off_topic_flag INTEGER DEFAULT 0",
-                    "off_topic_score": "off_topic_score REAL",
-                    "topic_score": "topic_score REAL",
-                    "topic_decision": "topic_decision TEXT",
-                    "topic_stage": "topic_stage TEXT",
-                    "pdf_source": "pdf_source TEXT",
-                },
-            )
-    
-    def _ensure_columns(self, conn, table: str, columns: Dict[str, str]) -> None:
-        """Ensure table has the given columns, adding any missing ones."""
-        existing = {row["name"] for row in conn.execute(f"PRAGMA table_info({table})")}
-        for name, ddl in columns.items():
-            if name not in existing:
-                conn.execute(f"ALTER TABLE {table} ADD COLUMN {ddl}")
+            apply_pending_schema_migrations(conn)
     
     @contextmanager
     def connection(self):

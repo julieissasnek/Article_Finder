@@ -17,9 +17,9 @@ from core.database import Database, get_database
 from triage.classifier import HierarchicalClassifier, TriageFilter
 from triage.question_relevance import QuestionAwareTriageGate, build_question_adjudicator
 from triage.registry_sink import AEUnifiedRegistrySink
-from eater_interface.job_bundle import JobBundleBuilder, BatchBundleBuilder
+from eater_interface.handoff_contract import BatchBundleBuilder, JobBundleBuilder
 from eater_interface.invoker import EaterInvoker, BatchInvoker, EaterJobQueue, EaterProfile, HITLMode
-from eater_interface.output_parser import OutputImporter
+from eater_interface.handoff_contract import OutputImporter
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
