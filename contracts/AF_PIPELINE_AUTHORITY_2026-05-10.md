@@ -25,6 +25,10 @@ This contract states the canonical AF pipeline as it presently exists.
 7. UI and operator control
    - `ui/`
    - `cli/`
+8. quarantine and health governance
+   - `scripts/build_quarantine_manifest.py`
+   - `scripts/verify_af_quarantine.py`
+   - `scripts/run_weekly_system_health.py`
 
 ## Architectural Rule
 
@@ -43,6 +47,8 @@ separate, but the overall state progression should remain coherent:
 - `core/database.py` is also too large and contains schema, state logic, and
   general operations in one place
 - health checking existed but was shallower than the live system required
+- quarantine handling existed operationally before it was constitutionally
+  governed
 
 These weaknesses do not negate the pipeline, but they do justify future
 refactoring.

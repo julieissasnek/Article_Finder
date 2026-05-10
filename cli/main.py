@@ -20,6 +20,7 @@ from typing import Optional
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.database import Database
+from core.system_health import run_check
 from config.loader import get, load_config
 
 
@@ -1443,15 +1444,23 @@ def cmd_doctor(args):
     if getattr(args, "deep", False):
         print("\n== Deep Integrity ==")
         verify_script = Path(__file__).parent.parent / "scripts" / "verify_af_integrity.py"
-        proc = subprocess.run(
+        proc = run_check(
+            "verify_af_integrity",
             [sys.executable, str(verify_script)],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            text=True,
+            cwd=Path(__file__).parent.parent,
         )
         print(proc.stdout)
-        if proc.returncode != 0:
+        if not proc.ok:
             return proc.returncode
+        quarantine_script = Path(__file__).parent.parent / "scripts" / "verify_af_quarantine.py"
+        qproc = run_check(
+            "verify_af_quarantine",
+            [sys.executable, str(quarantine_script)],
+            cwd=Path(__file__).parent.parent,
+        )
+        print(qproc.stdout)
+        if not qproc.ok:
+            return qproc.returncode
 
     return 0
 

@@ -14,6 +14,7 @@ older `doctor` command, which mainly checked configuration and paths.
 - `cli/main.py doctor --deep`
 - `scripts/validate_codebase.py`
 - `scripts/verify_af_integrity.py`
+- `scripts/verify_af_quarantine.py`
 
 ## Required Deep Checks
 
@@ -24,6 +25,7 @@ older `doctor` command, which mainly checked configuration and paths.
 - claim verifier sanity
 - PDF attachment integrity
 - AE handoff path integrity
+- quarantine manifest integrity
 
 ## Required Outputs
 

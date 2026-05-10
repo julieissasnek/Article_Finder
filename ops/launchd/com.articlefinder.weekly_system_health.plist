@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.articlefinder.weekly_system_health</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/env</string>
+    <string>python3</string>
+    <string>/Users/davidusa/REPOS/Article_Finder_v3_2_3/scripts/run_weekly_system_health.py</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Weekday</key>
+    <integer>7</integer>
+    <key>Hour</key>
+    <integer>3</integer>
+    <key>Minute</key>
+    <integer>30</integer>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>/Users/davidusa/REPOS/Article_Finder_v3_2_3/data/health_reports/launchd.stdout.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/davidusa/REPOS/Article_Finder_v3_2_3/data/health_reports/launchd.stderr.log</string>
+</dict>
+</plist>

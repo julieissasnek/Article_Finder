@@ -1,0 +1,14 @@
+{
+  "stage": "af_weekly_system_health",
+  "required_checks": [
+    "doctor_deep",
+    "validate_codebase",
+    "verify_af_quarantine"
+  ],
+  "required_latest_report": "data/health_reports/latest.json",
+  "hard_failures": [
+    "doctor_deep",
+    "validate_codebase",
+    "verify_af_quarantine"
+  ]
+}
