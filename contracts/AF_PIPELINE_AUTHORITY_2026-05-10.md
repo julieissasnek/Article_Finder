@@ -11,6 +11,8 @@ This contract states the canonical AF pipeline as it presently exists.
 
 1. ingestion / acquisition
    - `ingest/`
+   - includes immediate AE-corpus dedupe materialization through
+     `core/database.py`
 2. metadata enrichment and PDF attachment
    - `ingest/`
 3. triage and topical relevance

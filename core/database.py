@@ -7,14 +7,19 @@ SQLite database with full multi-facet classification support
 import sqlite3
 import json
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional, List, Dict, Any
 from contextlib import contextmanager
 
+from core.ae_corpus_dedupe import build_paper_dedupe_fields
 from core.schema_registry import apply_pending_schema_migrations
 
 # Default database path
 DEFAULT_DB_PATH = Path(__file__).parent.parent / "data" / "article_finder.db"
+
+
+def utc_now_iso() -> str:
+    return datetime.now(timezone.utc).isoformat()
 
 
 def get_schema_sql() -> str:
@@ -407,7 +412,13 @@ class Database:
                 if field in paper and isinstance(paper[field], (list, dict)):
                     paper[field] = json.dumps(paper[field])
             
-            paper['updated_at'] = datetime.utcnow().isoformat()
+            paper['updated_at'] = utc_now_iso()
+            paper.update(
+                build_paper_dedupe_fields(
+                    paper,
+                    deduped_at=paper['updated_at'],
+                )
+            )
             
             columns = ', '.join(paper.keys())
             placeholders = ', '.join(['?' for _ in paper])
@@ -459,7 +470,7 @@ class Database:
         with self.connection() as conn:
             conn.execute(
                 "UPDATE papers SET status = ?, updated_at = ? WHERE paper_id = ?",
-                (new_status, datetime.utcnow().isoformat(), paper_id)
+                (new_status, utc_now_iso(), paper_id)
             )
         
         return True
@@ -617,7 +628,7 @@ class Database:
                 """INSERT OR REPLACE INTO paper_facet_scores 
                    (paper_id, node_id, score, classification_method, classified_at)
                    VALUES (?, ?, ?, ?, ?)""",
-                (paper_id, node_id, score, method, datetime.utcnow().isoformat())
+                (paper_id, node_id, score, method, utc_now_iso())
             )
     
     def get_paper_facet_scores(self, paper_id: str) -> Dict[str, float]:
@@ -796,7 +807,7 @@ class Database:
                            priority_score = MAX(priority_score, ?),
                            updated_at = ?
                        WHERE doi = ?""",
-                    (priority_score, datetime.utcnow().isoformat(), doi)
+                    (priority_score, utc_now_iso(), doi)
                 )
             else:
                 conn.execute(

@@ -33,6 +33,7 @@ Operational executables:
 - `scripts/verify_af_semantic_integrity.py`
 - `scripts/run_atlas_shared_backlog_classifier.py`
 - `scripts/verify_af_shared_intake_classification.py`
+- `core/ae_corpus_dedupe.py`
 - `scripts/run_af_ae_corpus_dedupe.py`
 - `scripts/verify_af_ae_corpus_dedupe.py`
 - `scripts/repair_af_semantic_state.py`

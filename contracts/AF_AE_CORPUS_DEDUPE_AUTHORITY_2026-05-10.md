@@ -53,9 +53,13 @@ In `papers`:
 8. The purpose of this surface is to reduce wasted retrieval effort, not to
    redefine AF triage semantics. Dedupe overlap may later affect export policy,
    but the overlap fact must be materialized first.
+9. New or updated papers written through AF's canonical persistence path must
+   receive dedupe materialization in the same write cycle. The batch runner is
+   a reconciliation and backfill surface, not the primary ingestion path.
 
 ## Canonical Executables
 
+- `core/database.py`
 - `scripts/run_af_ae_corpus_dedupe.py`
 - `scripts/verify_af_ae_corpus_dedupe.py`
 - `core/schema_registry.py`
